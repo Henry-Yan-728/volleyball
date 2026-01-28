@@ -1,0 +1,101 @@
+T5ED0 000:163.599   SEGGER J-Link V7.82 Log File
+T5ED0 000:163.777   DLL Compiled: Oct 13 2022 13:32:51
+T5ED0 000:163.802   Logging started @ 2026-01-21 09:16
+T5ED0 000:163.825 - 163.839ms
+T5ED0 000:163.856 JLINK_SetWarnOutHandler(...)
+T5ED0 000:163.880 - 0.035ms
+T5ED0 000:163.904 JLINK_OpenEx(...)
+T5ED0 000:167.225   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T5ED0 000:167.767   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T5ED0 000:170.590   Hardware: V7.00
+T5ED0 000:170.639   S/N: 20090928
+T5ED0 000:170.675   OEM: SEGGER
+T5ED0 000:170.710   Feature(s): JFlash, RDI, GDB, FlashDL, FlashBP
+T5ED0 000:171.513   TELNET listener socket opened on port 19021
+T5ED0 000:171.626   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T5ED0 000:171.878   WEBSRV Webserver running on local port 19080
+T5ED0 000:180.819 - 16.945ms returns "O.K."
+T5ED0 000:180.886 JLINK_GetEmuCaps()
+T5ED0 000:180.911 - 0.036ms returns 0x88EA5833
+T5ED0 000:180.940 JLINK_TIF_GetAvailable(...)
+T5ED0 000:181.345 - 0.433ms
+T5ED0 000:181.398 JLINK_SetErrorOutHandler(...)
+T5ED0 000:181.423 - 0.036ms
+T5ED0 000:181.467 JLINK_ExecCommand("ProjectFile = "D:\обть\success-1-2026.1.20\main_control_board\MDK-ARM\JLinkSettings.ini"", ...). 
+T5ED0 000:193.537 - 12.092ms returns 0x00
+T5ED0 000:193.586 JLINK_ExecCommand("Device = STM32G474RETx", ...). 
+T5ED0 000:193.890   Device "STM32G474RE" selected.
+T5ED0 000:194.397 - 0.802ms returns 0x00
+T5ED0 000:194.428 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T5ED0 000:194.454 - 0.011ms returns 0x01
+T5ED0 000:194.476 JLINK_GetHardwareVersion()
+T5ED0 000:194.500 - 0.034ms returns 70000
+T5ED0 000:194.526 JLINK_GetDLLVersion()
+T5ED0 000:194.549 - 0.033ms returns 78200
+T5ED0 000:194.572 JLINK_GetOEMString(...)
+T5ED0 000:194.597 JLINK_GetFirmwareString(...)
+T5ED0 000:194.618 - 0.032ms
+T5ED0 000:194.649 JLINK_GetDLLVersion()
+T5ED0 000:194.671 - 0.034ms returns 78200
+T5ED0 000:194.695 JLINK_GetCompileDateTime()
+T5ED0 000:194.718 - 0.033ms
+T5ED0 000:194.743 JLINK_GetFirmwareString(...)
+T5ED0 000:194.765 - 0.034ms
+T5ED0 000:194.790 JLINK_GetHardwareVersion()
+T5ED0 000:194.817 - 0.038ms returns 70000
+T5ED0 000:194.841 JLINK_GetSN()
+T5ED0 000:194.863 - 0.033ms returns 20090928
+T5ED0 000:194.887 JLINK_GetOEMString(...)
+T5ED0 000:194.913 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T5ED0 000:195.637 - 0.759ms returns 0x00
+T5ED0 000:195.688 JLINK_HasError()
+T5ED0 000:195.728 JLINK_SetSpeed(5000)
+T5ED0 000:195.971 - 0.274ms
+T5ED0 000:196.304 JLINK_HasError()
+T5ED0 000:196.339 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T5ED0 000:196.363 - 0.035ms returns JLINKARM_RESET_TYPE_NORMAL
+T5ED0 000:196.388 JLINK_Reset()
+T5ED0 000:200.222   InitTarget() start
+T5ED0 000:200.271    J-Link Script File: Executing InitTarget()
+T5ED0 000:203.803   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:257.939   Connecting to CPU via connect under reset failed.
+T5ED0 000:308.370   InitTarget() end
+T5ED0 000:308.549   Connect failed. Resetting via Reset pin and trying again.
+T5ED0 000:370.787   InitTarget() start
+T5ED0 000:371.167    J-Link Script File: Executing InitTarget()
+T5ED0 000:374.847   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:428.231   Connecting to CPU via connect under reset failed.
+T5ED0 000:478.538   InitTarget() end
+T5ED0 000:478.763 - 282.427ms
+T5ED0 000:478.872 JLINK_GetId()
+T5ED0 000:479.356   InitTarget() start
+T5ED0 000:479.501    J-Link Script File: Executing InitTarget()
+T5ED0 000:482.433   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:535.100   Connecting to CPU via connect under reset failed.
+T5ED0 000:587.963   InitTarget() end
+T5ED0 000:588.163   Connect failed. Resetting via Reset pin and trying again.
+T5ED0 000:650.124   InitTarget() start
+T5ED0 000:650.345    J-Link Script File: Executing InitTarget()
+T5ED0 000:653.769   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:708.064   Connecting to CPU via connect under reset failed.
+T5ED0 000:758.574   InitTarget() end
+T5ED0 000:758.794 - 279.999ms returns 0x00000000
+T5ED0 000:758.901 JLINK_GetId()
+T5ED0 000:759.118   InitTarget() start
+T5ED0 000:759.160    J-Link Script File: Executing InitTarget()
+T5ED0 000:760.965   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:815.405   Connecting to CPU via connect under reset failed.
+T5ED0 000:866.239   InitTarget() end
+T5ED0 000:866.538   Connect failed. Resetting via Reset pin and trying again.
+T5ED0 000:929.484   InitTarget() start
+T5ED0 000:929.647    J-Link Script File: Executing InitTarget()
+T5ED0 000:933.002   Can not attach to CPU. Trying connect under reset.
+T5ED0 000:986.330   Connecting to CPU via connect under reset failed.
+T5ED0 001:037.298   InitTarget() end
+T5ED0 001:037.504 - 278.635ms returns 0x00000000
+T5ED0 001:052.001 JLINK_GetFirmwareString(...)
+T5ED0 001:052.044 - 0.055ms
+T5ED0 134:212.120 JLINK_Close()
+T5ED0 134:228.271 - 16.192ms
+T5ED0 134:228.326   
+T5ED0 134:228.348   Closed

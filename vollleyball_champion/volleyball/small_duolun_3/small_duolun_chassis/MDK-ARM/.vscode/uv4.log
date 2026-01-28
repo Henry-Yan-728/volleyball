@@ -1,0 +1,17 @@
+*** Using Compiler 'V6.19', folder: 'F:\Keil\ARM\ARMCLANG\Bin'
+Build target 'Volleyball2_chassis'
+../Motor_control/vesc_rx.c(5): error: redefinition of 'vesc_motor_speed' with a different type: 'uint32_t[8]' (aka 'unsigned int[8]') vs 'int32_t[8]' (aka 'int[8]')
+uint32_t vesc_motor_speed[8]={0};//?
+         ^
+../Motor_control/vesc_rx.h(10): note: previous declaration is here
+extern int32_t vesc_motor_speed[8];
+               ^
+1 error generated.
+compiling vesc_rx.c...
+compiling vesc.c...
+compiling chassis_task.c...
+compiling fdcan_bsp.c...
+compiling pid.c...
+"Volleyball2_chassis\Volleyball2_chassis.axf" - 1 Error(s), 0 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:01
