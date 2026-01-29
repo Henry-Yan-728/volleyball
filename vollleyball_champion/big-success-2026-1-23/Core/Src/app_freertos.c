@@ -72,7 +72,7 @@ const osMutexAttr_t rc_mutex_attributes = {
 remote_engineer_t g_remote_data = {0}; // 最终解算出的遥控器结构体
 uint8_t remote_Buffer[RC_BUFFER_SIZE]; // 串口 DMA 接收原始数据的内存空间
 uint8_t processsed_command[COMMAND_LENGTH]; // 指令解析临时缓冲区
-float pitch = 1.3f;
+float pitch = 0.0f;
 // 外部引用原始遥控器数据结构
 extern rc_info_t rc; 
 
@@ -160,7 +160,7 @@ void StartTask02(void *argument)
   float target_vx = 0, target_vy = 0, target_vr = 0;
   
   // --- 2. 机构动作参数配置 (角度/速度) ---
-  const float CUSHION_ORIGIN_DEG = 37.0f;   // 垫球机构复位角度 (deg)
+  const float CUSHION_ORIGIN_DEG = 57.0f;   // 垫球机构复位角度 (deg)
   const float CUSHION_ACTION_DEG = 114.0f;  // 垫球机构动作角度 (deg)
   const float SERVE_READY_RAD    = 30.0f;   // 发球电机复位转速
   const float SERVE_ACTION_RAD   = 210.0f;  // 发球电机动作转速
@@ -219,9 +219,9 @@ void StartTask02(void *argument)
           last_button_back = local_rc.button4;
 					
 					if (local_rc.button1 == 1 && last_button_front == 0) {
-              pitch += 0.02f;
+              pitch += 0.1f;
           } else if (local_rc.button3 == 1 && last_button_back == 0) {
-              pitch -= 0.02f;
+              pitch -= 0.1f;
           }
           last_button_front = local_rc.button1;
           last_button_back = local_rc.button3;
@@ -345,7 +345,7 @@ void StartTask02(void *argument)
       switch (serve_state) {
           case ACTION_STEP_1:
               // 动作：垫球机构配合抬起，发球电机转动
-              Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, pitch);
+              Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, 1.56f);
               Mechanism_Serve_SetAngle(SERVE_ACTION_RAD); 
 
               // 延时 300ms 后切换到复位阶段
@@ -461,9 +461,9 @@ void StartTask04(void *argument)
 void StartTask05(void *argument)
 {
   /* USER CODE BEGIN StartTask05 */
-    #define CUSHION_READY_DEG   37.0f 
-    #define CUSHION_SPEED       1.2f
-    #define ACTION_HOLD_MS      500
+    #define CUSHION_READY_DEG   57.0f 
+    #define CUSHION_SPEED       1.86f
+    #define ACTION_HOLD_MS      800
     const float CUSHION_ACTION_DEG = 114.0f;
 
     osDelay(1000); // 上电延时，等待传感器稳定
@@ -474,34 +474,41 @@ void StartTask05(void *argument)
   for(;;)
   {
     // 1. 读取光电门引脚电平 (GPIOB 11)
-//    if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
-//    {
-//        osDelay(5); // 软件消抖
-//        if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
-//        {
-//            // === 检测到球！执行一次性击球任务 ===
-//            printf("Ball detected! Action!\r\n");
+    if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
+    {
+        osDelay(5); // 软件消抖
+        if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
+        {
+            // === 检测到球！执行一次性击球任务 ===
+            printf("Ball detected! Action!\r\n");
+//					if(pitch>0)
+//					{
+//						pitch = pitch;
+//					}else{
+//					pitch = 50.0f;
+//					}
+//					osDelay(pitch);
 
-//            // 击球动作开始
-//            Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, CUSHION_SPEED);
-//            osDelay(ACTION_HOLD_MS); // 保持一段时间确保球被打出
+            // 击球动作开始
+            Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, CUSHION_SPEED+pitch);
+            osDelay(ACTION_HOLD_MS); // 保持一段时间确保球被打出
 
-//            // 复位动作
-//            Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, 0.3f);
-//            
-//            // 阻塞等待球离开光电门感应范围，防止连续触发
-//            while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
-//            {
-//                osDelay(10);
-//            }
-//            
-//            osDelay(500); // 动作冷却期
-//            printf("Ready.\r\n");
-//        }
-//    }
-//    
-//    // 空闲时的任务延时
-//    osDelay(5);
+            // 复位动作
+            Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, 0.3f);
+            
+            // 阻塞等待球离开光电门感应范围，防止连续触发
+            while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
+            {
+                osDelay(10);
+            }
+            
+            osDelay(500); // 动作冷却期
+            printf("Ready.\r\n");
+        }
+    }
+    
+    // 空闲时的任务延时
+    osDelay(5);
   }
   /* USER CODE END StartTask05 */
 }

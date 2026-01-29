@@ -267,12 +267,12 @@ __weak void StartTask02(void *argument)
   float target_vx = 0, target_vy = 0, target_vr = 0;
   
   // --- 2. 机构动作参数配置 (角度/速度) ---
-  const float CUSHION_ORIGIN_DEG = 37.0f;   // 垫球机构复位角度 (deg)
+  const float CUSHION_ORIGIN_DEG = 57.0f;   // 垫球机构复位角度 (deg)
   const float CUSHION_ACTION_DEG = 114.0f;  // 垫球机构动作角度 (deg)
   const float SERVE_READY_RAD    = 30.0f;   // 发球电机复位转速
   const float SERVE_ACTION_RAD   = 210.0f;  // 发球电机动作转速
   float PITCH_ANGLE = 0.0f;                 // Pitch 轴角度控制变量
-  float PITCH = 1.0f;                 // Pitch 轴力度控制变量
+  float PITCH = 1.86f;                 // Pitch 轴力度控制变量
 
   // 发球动作状态机相关变量
   ActionState_e serve_state = ACTION_IDLE;
@@ -327,9 +327,9 @@ __weak void StartTask02(void *argument)
           last_button_back = local_rc.button4;
 
           if (local_rc.button1 == 1 && last_button_front == 0) {
-              PITCH += 10.0f;
+              PITCH += 0.1f;
           } else if (local_rc.button3 == 1 && last_button_back == 0) {
-              PITCH -= 10.0f;
+              PITCH -= 0.1f;
           }
           last_button_front = local_rc.button1;
           last_button_back = local_rc.button3;
@@ -577,9 +577,9 @@ void StartTask04(void *argument)
 void StartTask05(void *argument)
 {
   /* USER CODE BEGIN StartTask05 */
-    #define CUSHION_READY_DEG   37.0f 
-    #define CUSHION_SPEED       15.0f
-    #define ACTION_HOLD_MS      500
+    #define CUSHION_READY_DEG   57.0f 
+    #define CUSHION_SPEED       1.86f
+    #define ACTION_HOLD_MS      800
     const float CUSHION_ACTION_DEG = 114.0f;
 
     osDelay(1000); // 上电延时，等待传感器稳定
