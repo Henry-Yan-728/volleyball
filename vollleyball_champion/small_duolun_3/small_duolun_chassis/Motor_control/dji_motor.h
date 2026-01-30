@@ -32,7 +32,7 @@ typedef enum{
  */
 typedef enum {
     MOTOR_MODE_SPEED = 0,    // 速度闭环模式 
-    MOTOR_MODE_POSITION = 1  // 位置闭环模式 (串级PID) 
+    MOTOR_MODE_POSITION = 1,  // 位置闭环模式 (串级PID) 
 } DJI_Motor_Mode_e;
 
 /**
@@ -80,7 +80,6 @@ void dji_motor_set_speed(DJI_Motor_Instance* motor, int16_t speed);
 DJI_Motor_Instance* dji_motor_get_instance(uint8_t motor_index);
 void dji_motor_stop_all(void);
 void dji_motor_resume_all(void);
-
 
 /*************************** Internal Functions (for fdcan_bsp) ***************************/
 

@@ -1,7 +1,7 @@
 Dependencies for Project 'Volleyball2_chassis', Target 'Volleyball2_chassis': (DO NOT MODIFY !)
 CompilerVersion: 6190000::V6.19::ARMCLANG
 F (startup_stm32g474xx.s)(0x6974D8DB)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4 -Wa,armasm,--pd,"__MICROLIB SETA 1"-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 538" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"STM32G474xx SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o volleyball2_chassis/startup_stm32g474xx.o)
-F (../Core/Src/main.c)(0x69786E7B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/main.o -MD)
+F (../Core/Src/main.c)(0x697B73FB)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/main.o -MD)
 I (..\Core\Inc\main.h)(0x6971EFB6)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x68EA1AC7)
 I (..\Core\Inc\stm32g4xx_hal_conf.h)(0x6971EFB6)
@@ -41,11 +41,12 @@ I (..\Core\Inc\usart.h)(0x6974BEB8)
 I (..\Core\Inc\gpio.h)(0x6971EFB2)
 I (..\BSP\fdcan_bsp.h)(0x69397792)
 I (..\chassis_task\chassis_task.h)(0x697222F9)
-I (..\control\control.h)(0x69722305)
-I (..\Motor_control\dji_motor.h)(0x697222FD)
+I (..\control\control.h)(0x697B73FB)
+I (..\Motor_control\dji_motor.h)(0x697B5659)
 I (..\Motor_control\pid.h)(0x6974CC2F)
 I (..\Motor_control\vesc.h)(0x69721B51)
 I (F:\Keil\ARM\ARMCLANG\include\stdio.h)(0x63884908)
+I (F:\Keil\ARM\ARMCLANG\include\math.h)(0x63884908)
 F (../Core/Src/gpio.c)(0x6971EFB2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/gpio.o -MD)
 I (..\Core\Inc\gpio.h)(0x6971EFB2)
 I (..\Core\Inc\main.h)(0x6971EFB6)
@@ -895,8 +896,8 @@ I (..\Motor_control\pid.h)(0x6974CC2F)
 F (..\Motor_control\pid.h)(0x6974CC2F)()
 F (..\Motor_control\vesc.h)(0x69721B51)()
 F (..\Motor_control\vesc_rx.h)(0x69781F38)()
-F (..\Motor_control\dji_motor.c)(0x6978644A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/dji_motor.o -MD)
-I (..\Motor_control\dji_motor.h)(0x697222FD)
+F (..\Motor_control\dji_motor.c)(0x697B72DF)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/dji_motor.o -MD)
+I (..\Motor_control\dji_motor.h)(0x697B5659)
 I (..\Core\Inc\main.h)(0x6971EFB6)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x68EA1AC7)
 I (..\Core\Inc\stm32g4xx_hal_conf.h)(0x6971EFB6)
@@ -934,7 +935,8 @@ I (..\Motor_control\pid.h)(0x6974CC2F)
 I (..\BSP\fdcan_bsp.h)(0x69397792)
 I (..\Core\Inc\fdcan.h)(0x6971EFB5)
 I (F:\Keil\ARM\ARMCLANG\include\stdbool.h)(0x63884908)
-F (..\Motor_control\dji_motor.h)(0x697222FD)()
+I (F:\Keil\ARM\ARMCLANG\include\string.h)(0x63884908)
+F (..\Motor_control\dji_motor.h)(0x697B5659)()
 F (..\chassis_task\chassis_task.c)(0x69781FF3)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/chassis_task.o -MD)
 I (..\chassis_task\chassis_task.h)(0x697222F9)
 I (..\Core\Inc\main.h)(0x6971EFB6)
@@ -970,7 +972,7 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr_ex.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h)(0x68EA1AC7)
-I (..\control\control.h)(0x69722305)
+I (..\control\control.h)(0x697B73FB)
 I (..\BSP\fdcan_bsp.h)(0x69397792)
 I (..\Core\Inc\fdcan.h)(0x6971EFB5)
 I (F:\Keil\ARM\ARMCLANG\include\math.h)(0x63884908)
@@ -1015,8 +1017,8 @@ I (..\Core\Inc\fdcan.h)(0x6971EFB5)
 I (F:\Keil\ARM\ARMCLANG\include\string.h)(0x63884908)
 I (..\Motor_control\vesc_rx.h)(0x69781F38)
 F (..\BSP\fdcan_bsp.h)(0x69397792)()
-F (..\control\control.c)(0x69722149)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/control.o -MD)
-I (..\control\control.h)(0x69722305)
+F (..\control\control.c)(0x697B73FB)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-4 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc -I ../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I ../Drivers/CMSIS/Include -I ../Motor_control -I ../BSP -I ../chassis_task -I ../control-I./RTE/_Volleyball2_chassis-IF:/Keil/ARM/CMSIS/5.9.0/CMSIS/Core/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32G474xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32G474xx-o volleyball2_chassis/control.o -MD)
+I (..\control\control.h)(0x697B73FB)
 I (..\Core\Inc\main.h)(0x6971EFB6)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h)(0x68EA1AC7)
 I (..\Core\Inc\stm32g4xx_hal_conf.h)(0x6971EFB6)
@@ -1050,8 +1052,8 @@ I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_pwr_ex.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h)(0x68EA1AC7)
 I (..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h)(0x68EA1AC7)
-I (..\Motor_control\dji_motor.h)(0x697222FD)
+I (..\Motor_control\dji_motor.h)(0x697B5659)
 I (..\Motor_control\pid.h)(0x6974CC2F)
 I (..\Motor_control\vesc.h)(0x69721B51)
 I (F:\Keil\ARM\ARMCLANG\include\math.h)(0x63884908)
-F (..\control\control.h)(0x69722305)()
+F (..\control\control.h)(0x697B73FB)()

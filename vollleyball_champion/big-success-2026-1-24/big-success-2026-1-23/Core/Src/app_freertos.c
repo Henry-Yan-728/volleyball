@@ -243,7 +243,8 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   for(;;)
   {
-      osDelay(1);
+	Update_Virtual_Axis();
+    osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
 }

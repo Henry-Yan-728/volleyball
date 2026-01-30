@@ -3,7 +3,7 @@
 <title>Static Call Graph - [fdcan_test\fdcan_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image fdcan_test\fdcan_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu Jan 29 15:50:53 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu Jan 29 18:00:43 2026
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1503,7 +1503,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[105]"></a>Mechanism_Init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, mechanism_task.o(.text.Mechanism_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = Mechanism_Init &rArr; dji_motors_init &rArr; dji_motor_configure &rArr; fdcan_bsp_register
+<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = Mechanism_Init &rArr; dji_motors_init &rArr; dji_motor_configure &rArr; fdcan_bsp_register
 </UL>
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dji_motors_init
 </UL>
@@ -1798,8 +1798,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Mechanism_Pitch_SetAngle
 </UL>
 
-<P><STRONG><a name="[113]"></a>dji_motors_init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, dji_motor.o(.text.dji_motors_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = dji_motors_init &rArr; dji_motor_configure &rArr; fdcan_bsp_register
+<P><STRONG><a name="[113]"></a>dji_motors_init</STRONG> (Thumb, 192 bytes, Stack size 48 bytes, dji_motor.o(.text.dji_motors_init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = dji_motors_init &rArr; dji_motor_configure &rArr; fdcan_bsp_register
 </UL>
 <BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dji_motor_configure
 </UL>

@@ -44,7 +44,7 @@ return ch;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define USE_FREERTOS
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/

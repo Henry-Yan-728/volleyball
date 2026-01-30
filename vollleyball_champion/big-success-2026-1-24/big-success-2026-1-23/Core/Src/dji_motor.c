@@ -99,7 +99,7 @@ static void dji_critical_section_exit(void);
  */
 int32_t dji_degree2encoder(float degree)
 {
-		float ratio = (float)DJI_ENCODER_RESOLUTION *19.0f/ 360.0f;
+		float ratio = (float)DJI_ENCODER_RESOLUTION  *19.0f/ 360.0f;
 		
 		return (int32_t)(degree * ratio);
 }
@@ -118,30 +118,30 @@ void dji_motors_init(void)
     
     // 示例配置: 前4个电机在FDCAN1, 后4个在FDCAN2
     // PID参数直接从 pid.c 文件中迁移过来
-    // dji_motor_configure(0, CAN_3508_2006_M1_ID, &hfdcan1, 
-	// 											0.15f, 0.001f, 0.035f, 
-	// 											24.0f, 1.2f, 0.03f, 
-	// 											500, -500, 9000, -9000);
-    // dji_motor_configure(1, CAN_3508_2006_M2_ID, &hfdcan1, 
-	// 											0.15f, 0.001f, 0.035f, 
-	// 											24.0f, 1.2f, 0.03f, 
-	// 											1200, -1200, 12000, -12000);
-    // dji_motor_configure(2, CAN_3508_2006_M3_ID, &hfdcan1, 
-	// 											0.15f, 0.001f, 0.035f, 
-	// 											24.0f, 1.2f, 0.03f, 
-	// 											1200, -1200, 12000, -12000);
+    dji_motor_configure(0, CAN_3508_2006_M1_ID, &hfdcan2, 
+												0.2f, 0.001f, 0.035f, 
+												24.0f, 1.2f, 0.03f, 
+												1200, -1200, 12000, -12000);
+    dji_motor_configure(1, CAN_3508_2006_M2_ID, &hfdcan2, 
+												0.2f, 0.001f, 0.035f, 
+												24.0f, 1.2f, 0.03f, 
+												1200, -1200, 12000, -12000);
+    dji_motor_configure(2, CAN_3508_2006_M3_ID, &hfdcan2, 
+												0.2f, 0.001f, 0.035f, 
+												24.0f, 1.2f, 0.03f, 
+												1200, -1200, 12000, -12000);
 //    dji_motor_configure(3, CAN_3508_2006_M4_ID, &hfdcan1, 
-//												0.15f, 0.001f, 0.035f, 
-//												24.0f, 1.2f, 0.03f, 
-//												500, -500, 12000, -12000);
-   dji_motor_configure(4, CAN_3508_2006_M5_ID, &hfdcan2, 
-												0.15f, 0.001f, 0.03f,  
-												12.0f, 1.2f, 0.035f, 
-												500, -500, 12000, -12000);
+// 												0.15f, 0.001f, 0.035f, 
+// 												24.0f, 1.2f, 0.03f, 
+// 												500, -500, 12000, -12000);
+//    dji_motor_configure(4, CAN_3508_2006_M5_ID, &hfdcan1, 
+// 												0.15f, 0.001f, 0.03f,  
+// 												12.0f, 1.2f, 0.035f, 
+// 												500, -500, 12000, -12000);
 //    dji_motor_configure(5, CAN_3508_2006_M6_ID, &hfdcan2, 
-//												0.15f, 0.001f, 0.03f,  
-//												24.0f, 1.2f, 0.035f, 
-//												500, -500, 12000, -12000);
+// 												0.15f, 0.001f, 0.03f,  
+// 												24.0f, 1.2f, 0.035f, 
+// 												500, -500, 12000, -12000);
 //    dji_motor_configure(6, CAN_3508_2006_M7_ID, &hfdcan2, 
 //												0.15f, 0.001f, 0.03f,  
 //												24.0f, 1.2f, 0.035f, 
@@ -234,51 +234,46 @@ void dji_motor_resume_all(void)
  * @param  rx_data: 接收到的8字节CAN数据
  * @retval None
  */
+// 2. 接收回调与 PID 计算
 void dji_motor_message_handler(void* instance, FDCAN_RxHeaderTypeDef* rx_header, uint8_t rx_data[8])
 {
     if (instance == NULL) return;
-    
     DJI_Motor_Instance* motor = (DJI_Motor_Instance*)instance;
 
-    // 1. 解析数据
+    // --- A. 数据解析 ---
     get_motor_measure(motor, rx_data);
-    
-    // ==========================================================
-    // 【必须加上这段代码】否则上电容易疯转
-    // ==========================================================
+
+    // --- B. 上电保护 ---
+    // 第一次收到消息时，将目标位置设为当前位置，防止电机猛地归零
     if (motor->is_online == 0)
     {
-        get_total_angle(motor); // 算出当前绝对角度
-        
-        // 强行把目标设为当前位置，让 PID 误差为 0
+        get_total_angle(motor); // 更新一次累计角度
         motor->target_loc = motor->measure.total_angle; 
-        motor->target_speed = 0;
+        motor->is_online = 1;
     }
-    // ==========================================================
     
-    // 2. 更新在线状态
-    motor->is_online = 1;
     motor->last_msg_time = HAL_GetTick();
+    get_total_angle(motor); // 实时计算多圈累计角度
 
-    // 3. 计算累计角度
-    get_total_angle(motor);
-    // 4. 执行PID闭环控制计算
+    // --- C. 闭环控制计算 ---
     if (motor->control_mode == MOTOR_MODE_POSITION)
     {
-        // 串级PID: 位置环的输出是速度环的目标
+        // 串级 PID：位置环输出 -> 速度环输入
         float speed_target = Pid_incremental_cal(&motor->loc_pid, motor->measure.total_angle, motor->target_loc);
+        
+        // 速度环：速度环输出 -> 电流(转矩)
         Pid_incremental_cal(&motor->spd_pid, motor->measure.speed_rpm, speed_target);
     }
-    else // MOTOR_MODE_SPEED
+    else if (motor->control_mode == MOTOR_MODE_SPEED)
     {
-        Pid_incremental_cal(&motor->spd_pid, motor->measure.speed_rpm, motor->target_speed);
+        Pid_incremental_cal(&motor->spd_pid, motor->measure.speed_rpm, (float)motor->target_speed);
     }
 
-    // 5. 发送控制指令 (任何电机反馈都会触发对所有电机的指令发送)
+    // --- D. 发送指令 ---
+    // 收到谁的反馈，就更新谁的数据，并触发该组电机的 CAN 发送
+    // 由于是独立计算，这里直接发送即可，无需等待另一个电机
     dji_motor_send_commands(motor);
 }
-
-
 /* ------------------------- Private Function Implementations ------------------------- */
 
 /**
@@ -473,3 +468,4 @@ static void dji_critical_section_exit(void)
     __enable_irq();
 #endif
 }
+

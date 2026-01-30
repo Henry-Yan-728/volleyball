@@ -14,8 +14,16 @@
 #define UNITREE_ID_SERVE      0
 
 // 大疆电机索引 (在 dji_motors 数组中的位置)
-// 之前我们在 dji_motors_init 里把俯仰电机设为了第 5 个 (索引4)
-#define DJI_INDEX_PITCH       4  
+// 定义两个大疆电机的索引 (假设是 4 和 5)
+#define DJI_INDEX_AXIS_MASTER  4  // 正转电机 (俯仰电机)
+#define DJI_INDEX_AXIS_SLAVE   5  // 反转电机 (辅助电机)
+
+typedef struct {
+    float current_angle;    // 虚拟轴当前的实时角度 (度)
+    float target_angle;     // 最终想要到达的角度 (度)
+    float velocity_deg_ms;  // 速度：每毫秒转多少度 (0.1度/ms = 100度/秒)
+    uint32_t last_tick;     // 上次更新的时间戳
+} Virtual_Axis_t;
 
 // =============================================================
 //  函数声明
@@ -45,5 +53,7 @@ void Mechanism_Serve_SetAngle(float speed_rad_s);
 void Mechanism_Pitch_SetAngle(float angle_deg);
 
 void Mechanism_Zero();
+
+void Update_Virtual_Axis(void);
 
 #endif // MECHANISM_TASK_H

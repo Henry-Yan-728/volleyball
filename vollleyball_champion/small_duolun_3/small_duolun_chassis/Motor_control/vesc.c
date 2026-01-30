@@ -15,7 +15,7 @@ static FDCAN_HandleTypeDef* vesc_hfdcan_map[vesc_motor_nums] = {
 
 /************** 内部变量与函数 **************/
 union s32_to_u8 vesc_content_transform[vesc_motor_nums] = {0};
-static int vesc_motor_poles_s[vesc_motor_nums] = {7, 7, 7, 7}; // 极对数，需根据电机修改
+static int vesc_motor_poles_s[vesc_motor_nums] = {12, 12, 12, 12}; // 极对数，需根据电机修改
 static int motor_speed_s[vesc_motor_nums] = {0};
 
 // 内部发送函数声明

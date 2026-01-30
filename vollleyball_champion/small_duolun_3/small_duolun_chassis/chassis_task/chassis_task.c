@@ -36,7 +36,7 @@ void Chassis_Stop(void)
 // vr: rad/s (自转)
 void Chassis_Update(float vx, float vy, float vr)
 {
-    if (HAL_GetTick() - last_cmd_time > 500) 
+    if (HAL_GetTick() - last_cmd_time > 5000) 
     { 
     // 超过 500ms 没收到指令
     vx = vy = vr = 0; // 强制停车
