@@ -169,26 +169,4 @@ bool Motor_IsMoving(void)
     return is_motion_active;
 }
 
-///* USER CODE BEGIN Header_StartTask02 */
-///**
-//* @brief  控制循环任务：负责高频执行 Update,主程序里面单开一个任务
-//*/
-///* USER CODE END Header_StartTask02 */
-//void StartTask02(void *argument)
-//{
-//  /* USER CODE BEGIN StartTask02 */
-//  TickType_t xLastWakeTime;
-//  const uint32_t xFrequency_ticks = pdMS_TO_TICKS(CONTROL_TASK_FREQUENCY_MS);
-//  xLastWakeTime = osKernelGetTickCount(); 
 
-//  /* Infinite loop */
-//  for(;;)
-//  {
-//    xLastWakeTime += xFrequency_ticks;
-//    osDelayUntil(xLastWakeTime);
-
-//    // 只需要调用这一行
-//    Motor_UpdateLoop(CONTROL_TASK_FREQUENCY_MS);
-//  }
-//  /* USER CODE END StartTask02 */
-//}

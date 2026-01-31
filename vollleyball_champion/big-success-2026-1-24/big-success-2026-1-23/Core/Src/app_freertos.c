@@ -241,11 +241,18 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+  TickType_t xLastWakeTime;
+  const TickType_t xFrequency = pdMS_TO_TICKS(1); // 1ms
+  xLastWakeTime = osKernelGetTickCount();
   for(;;)
   {
 	Update_Virtual_Axis();
-    osDelay(1);
-  }
+    // 2. [新增] 更新宇树电机击球轨迹
+    // 传入 1ms 的时间步长
+    Mechanism_Cushion_Update_Loop(1);
+
+    // 绝对延时，保证1ms周期
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);  }
   /* USER CODE END StartDefaultTask */
 }
 
@@ -453,7 +460,7 @@ __weak void StartTask02(void *argument)
       switch (serve_state) {
           case ACTION_STEP_1:
               // 动作：垫球机构配合抬起，发球电机转动
-              Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, 1.6f);
+            Mechanism_Cushion_Trigger(1200.0f); // 垫球机构快速抬起
               Mechanism_Serve_SetAngle(SERVE_ACTION_RAD); 
 
               // 延时 300ms 后切换到复位阶段
@@ -464,7 +471,7 @@ __weak void StartTask02(void *argument)
 
           case ACTION_STEP_2:
               // 动作：垫球机构复位，发球电机保持转动确保球射出
-              Mechanism_Cushion_SetAngle(CUSHION_ORIGIN_DEG, 0.3f);
+              Mechanism_Cushion_Return();
               Mechanism_Serve_SetAngle(SERVE_ACTION_RAD);
 
               // 延时总计 800ms 后动作结束，状态机回到空闲
@@ -493,38 +500,38 @@ __weak void StartTask02(void *argument)
 void StartTask03(void *argument)
 {
   /* USER CODE BEGIN StartTask03 */
-  FDCAN_TxHeaderTypeDef TxHeader;
-  uint8_t TxData[12];
+//   FDCAN_TxHeaderTypeDef TxHeader;
+//   uint8_t TxData[12];
   
-  // 初始化 FDCAN 发送帧头
-  TxHeader.Identifier = 0x101;
-  TxHeader.IdType = FDCAN_STANDARD_ID;
-  TxHeader.TxFrameType = FDCAN_DATA_FRAME;
-  TxHeader.DataLength = FDCAN_DLC_BYTES_12; 
-  TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-  TxHeader.BitRateSwitch = FDCAN_BRS_ON;   
-  TxHeader.FDFormat = FDCAN_FD_CAN;        
-  TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
-  TxHeader.MessageMarker = 0;
+//   // 初始化 FDCAN 发送帧头
+//   TxHeader.Identifier = 0x101;
+//   TxHeader.IdType = FDCAN_STANDARD_ID;
+//   TxHeader.TxFrameType = FDCAN_DATA_FRAME;
+//   TxHeader.DataLength = FDCAN_DLC_BYTES_12; 
+//   TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+//   TxHeader.BitRateSwitch = FDCAN_BRS_ON;   
+//   TxHeader.FDFormat = FDCAN_FD_CAN;        
+//   TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
+//   TxHeader.MessageMarker = 0;
 
   for(;;)
   {
-      float temp_x, temp_y, temp_angle;
+//       float temp_x, temp_y, temp_angle;
       
-      // 使用临界区读取位姿数据，确保 x,y,angle 的同步性
-      taskENTER_CRITICAL();
-      temp_x = g_robot_pose.x;
-      temp_y = g_robot_pose.y;
-      temp_angle = g_robot_pose.angle;
-      taskEXIT_CRITICAL();
+//       // 使用临界区读取位姿数据，确保 x,y,angle 的同步性
+//       taskENTER_CRITICAL();
+//       temp_x = g_robot_pose.x;
+//       temp_y = g_robot_pose.y;
+//       temp_angle = g_robot_pose.angle;
+//       taskEXIT_CRITICAL();
 
-      // 数据打包 (Float -> Byte)
-      memcpy(&TxData[0], &temp_x, 4);
-      memcpy(&TxData[4], &temp_y, 4);
-      memcpy(&TxData[8], &temp_angle, 4);
+//       // 数据打包 (Float -> Byte)
+//       memcpy(&TxData[0], &temp_x, 4);
+//       memcpy(&TxData[4], &temp_y, 4);
+//       memcpy(&TxData[8], &temp_angle, 4);
 
-      // 发送到 CAN2
-      HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, TxData);
+//       // 发送到 CAN2
+//       HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &TxHeader, TxData);
       osDelay(1);
   }
   /* USER CODE END StartTask03 */
@@ -578,16 +585,25 @@ void StartTask04(void *argument)
 void StartTask05(void *argument)
 {
   /* USER CODE BEGIN StartTask05 */
-    #define CUSHION_READY_DEG   57.0f 
-    #define CUSHION_SPEED       1.86f
-    #define ACTION_HOLD_MS      800
-    const float CUSHION_ACTION_DEG = 114.0f;
+    // #define CUSHION_READY_DEG   57.0f 
+    // #define CUSHION_SPEED       1.86f
+    // #define ACTION_HOLD_MS      800
+    // const float CUSHION_ACTION_DEG = 114.0f;
 
-    osDelay(1000); // 上电延时，等待传感器稳定
-    // 初始化击球板位置
-    Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, CUSHION_SPEED);
-    printf("System Ready. Angle reset.\r\n");
+    // osDelay(1000); // 上电延时，等待传感器稳定
+    // // 初始化击球板位置
+    // Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, CUSHION_SPEED);
+    // printf("System Ready. Angle reset.\r\n");
 
+    // 设定击球时的峰值速度 (度/秒)
+    // 97度时的速度。根据经验，宇树电机输出端 800~1000 deg/s 是比较有力的
+    // 1000 deg/s (输出端) ~= 17.5 rad/s (输出端) ~= 110 rad/s (转子端) -> 约1000RPM，很安全
+    const float PEAK_SPEED = 1200.0f; 
+    const uint32_t HOLD_TIME_MS = 500;
+
+    osDelay(1000); 
+    Mechanism_Cushion_Return(); // 先复位
+    printf("System Ready.\r\n");
   for(;;)
   {
     // 1. 读取光电门引脚电平 (GPIOB 11)
@@ -596,23 +612,47 @@ void StartTask05(void *argument)
         osDelay(10); // 软件消抖
         if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
         {
-            // === 检测到球！执行一次性击球任务 ===
-            printf("Ball detected! Action!\r\n");
+            // // === 检测到球！执行一次性击球任务 ===
+            // printf("Ball detected! Action!\r\n");
 
-            // 击球动作开始
-            Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, CUSHION_SPEED);
-            osDelay(ACTION_HOLD_MS); // 保持一段时间确保球被打出
+            // // 击球动作开始
+            // Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, CUSHION_SPEED);
+            // osDelay(ACTION_HOLD_MS); // 保持一段时间确保球被打出
 
-            // 复位动作
-            Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, 0.3f);
+            // // 复位动作
+            // Mechanism_Cushion_SetAngle(CUSHION_READY_DEG, 0.3f);
             
-            // 阻塞等待球离开光电门感应范围，防止连续触发
-            while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
-            {
+            // // 阻塞等待球离开光电门感应范围，防止连续触发
+            // while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET)
+            // {
+            //     osDelay(10);
+            // }
+            
+            // osDelay(500); // 动作冷却期
+            // printf("Ready.\r\n");
+
+            printf("Ball detected! SMASH!\r\n");
+
+            // 1. 触发非对称轨迹：在97度达到 PEAK_SPEED，然后在114度停下
+            Mechanism_Cushion_Trigger(PEAK_SPEED);
+            
+            // 2. 等待动作完成 (估算时间 + 保持时间)
+            // 这里的 Delay 只是为了逻辑挂起，底层的 Update_Loop 还在跑
+            osDelay(200); // 估计击球过程很短 < 100ms
+            
+            // 3. 保持在终点一段时间
+            osDelay(HOLD_TIME_MS);
+
+            // 4. 慢速复位
+            printf("Returning...\r\n");
+            Mechanism_Cushion_Return();
+            
+            // 5. 等待球离开传感器
+            while (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11) == GPIO_PIN_RESET) {
                 osDelay(10);
             }
             
-            osDelay(500); // 动作冷却期
+            osDelay(500); // 冷却
             printf("Ready.\r\n");
         }
    }

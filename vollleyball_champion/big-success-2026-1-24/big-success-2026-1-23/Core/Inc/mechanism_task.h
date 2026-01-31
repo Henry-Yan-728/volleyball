@@ -2,6 +2,7 @@
 #define MECHANISM_TASK_H
 
 #include "main.h"
+#include <stdbool.h>
 
 // =============================================================
 //  电机 ID 定义 (CAN3)
@@ -17,6 +18,41 @@
 // 定义两个大疆电机的索引 (假设是 4 和 5)
 #define DJI_INDEX_AXIS_MASTER  4  // 正转电机 (俯仰电机)
 #define DJI_INDEX_AXIS_SLAVE   5  // 反转电机 (辅助电机)
+
+// 机构角度定义 (角度制)
+#define CUSHION_ANGLE_START   37.0f   // 起始位置
+#define CUSHION_ANGLE_HIT     97.0f   // 击球位置 (最大速度点)
+#define CUSHION_ANGLE_END     114.0f  // 停止位置
+
+// 减速比
+#define REDUCTION_RATIO       6.33f
+
+typedef struct {
+    // 状态标志
+    bool is_moving;
+    bool is_returning; // 是否处于复位阶段
+    
+    // 轨迹参数 (单位: 输出轴弧度 rad)
+    float start_pos;
+    float hit_pos;     // 速度峰值点
+    float end_pos;
+    
+    // 运动学参数
+    float max_vel;     // 设定的峰值速度 (rad/s)
+    float accel;       // 加速度 (rad/s^2)
+    float decel;       // 减速度 (rad/s^2)
+    
+    // 运行时变量
+    float current_time;
+    float total_time_acc; // 加速段时间
+    float total_time_dec; // 减速段时间
+    
+    // 输出给电机的指令
+    float out_pos_rad;   // 输出轴目标弧度
+    float out_vel_rad;   // 输出轴目标角速度
+    float out_torque;    // 前馈力矩
+
+} Cushion_Profile_t;
 
 typedef struct {
     float current_angle;    // 虚拟轴当前的实时角度 (度)
@@ -37,7 +73,13 @@ void Mechanism_Init(void);
  * @param angle_rad: 目标角度 (弧度)
  * @param kp: 刚度系数 (建议 0.05 ~ 0.5)
  */
-void Mechanism_Cushion_SetAngle(float angle_rad, float kp);
+void Mechanism_Cushion_Trigger(float peak_speed_deg_s);
+
+// 复位动作 (慢速回到起点)
+void Mechanism_Cushion_Return(void);
+
+// 轨迹更新函数 (需放入 1ms 高频任务)
+void Mechanism_Cushion_Update_Loop(uint32_t dt_ms);
 
 /**
  * @brief 控制发球机构 (1个宇树电机)
