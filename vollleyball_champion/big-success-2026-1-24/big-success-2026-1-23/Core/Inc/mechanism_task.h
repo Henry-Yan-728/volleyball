@@ -2,95 +2,53 @@
 #define MECHANISM_TASK_H
 
 #include "main.h"
-#include <stdbool.h>
 
 // =============================================================
-//  µç»ú ID ¶¨Òå (CAN3)
+//  ç”µæœº ID å®šä¹‰ (CAN3)
 // =============================================================
 
-// ÓîÊ÷µç»ú ID (0, 1, 2 ÓÃÓÚµæÇò£¬3 ÓÃÓÚ·¢Çò)
+// å®‡æ ‘ç”µæœº ID (0, 1, 2 ç”¨äºå«çƒï¼Œ3 ç”¨äºå‘çƒ)
 #define UNITREE_ID_CUSHION_1  1
 #define UNITREE_ID_CUSHION_2  2
 #define UNITREE_ID_CUSHION_3  3
 #define UNITREE_ID_SERVE      0
 
-// ´ó½®µç»úË÷Òı (ÔÚ dji_motors Êı×éÖĞµÄÎ»ÖÃ)
-// ¶¨ÒåÁ½¸ö´ó½®µç»úµÄË÷Òı (¼ÙÉèÊÇ 4 ºÍ 5)
-#define DJI_INDEX_AXIS_MASTER  4  // Õı×ªµç»ú (¸©Ñöµç»ú)
-#define DJI_INDEX_AXIS_SLAVE   5  // ·´×ªµç»ú (¸¨Öúµç»ú)
-
-// »ú¹¹½Ç¶È¶¨Òå (½Ç¶ÈÖÆ)
-#define CUSHION_ANGLE_START   37.0f   // ÆğÊ¼Î»ÖÃ
-#define CUSHION_ANGLE_HIT     97.0f   // »÷ÇòÎ»ÖÃ (×î´óËÙ¶Èµã)
-#define CUSHION_ANGLE_END     114.0f  // Í£Ö¹Î»ÖÃ
-
-// ¼õËÙ±È
-#define REDUCTION_RATIO       6.33f
+// å¤§ç–†ç”µæœºç´¢å¼• (åœ¨ dji_motors æ•°ç»„ä¸­çš„ä½ç½®)
+// å®šä¹‰ä¸¤ä¸ªå¤§ç–†ç”µæœºçš„ç´¢å¼• (å‡è®¾æ˜¯ 4 å’Œ 5)
+#define DJI_INDEX_AXIS_MASTER  4  // æ­£è½¬ç”µæœº (ä¿¯ä»°ç”µæœº)
+#define DJI_INDEX_AXIS_SLAVE   5  // åè½¬ç”µæœº (è¾…åŠ©ç”µæœº)
 
 typedef struct {
-    // ×´Ì¬±êÖ¾
-    bool is_moving;
-    bool is_returning; // ÊÇ·ñ´¦ÓÚ¸´Î»½×¶Î
-    
-    // ¹ì¼£²ÎÊı (µ¥Î»: Êä³öÖá»¡¶È rad)
-    float start_pos;
-    float hit_pos;     // ËÙ¶È·åÖµµã
-    float end_pos;
-    
-    // ÔË¶¯Ñ§²ÎÊı
-    float max_vel;     // Éè¶¨µÄ·åÖµËÙ¶È (rad/s)
-    float accel;       // ¼ÓËÙ¶È (rad/s^2)
-    float decel;       // ¼õËÙ¶È (rad/s^2)
-    
-    // ÔËĞĞÊ±±äÁ¿
-    float current_time;
-    float total_time_acc; // ¼ÓËÙ¶ÎÊ±¼ä
-    float total_time_dec; // ¼õËÙ¶ÎÊ±¼ä
-    
-    // Êä³ö¸øµç»úµÄÖ¸Áî
-    float out_pos_rad;   // Êä³öÖáÄ¿±ê»¡¶È
-    float out_vel_rad;   // Êä³öÖáÄ¿±ê½ÇËÙ¶È
-    float out_torque;    // Ç°À¡Á¦¾Ø
-
-} Cushion_Profile_t;
-
-typedef struct {
-    float current_angle;    // ĞéÄâÖáµ±Ç°µÄÊµÊ±½Ç¶È (¶È)
-    float target_angle;     // ×îÖÕÏëÒªµ½´ïµÄ½Ç¶È (¶È)
-    float velocity_deg_ms;  // ËÙ¶È£ºÃ¿ºÁÃë×ª¶àÉÙ¶È (0.1¶È/ms = 100¶È/Ãë)
-    uint32_t last_tick;     // ÉÏ´Î¸üĞÂµÄÊ±¼ä´Á
+    float current_angle;    // è™šæ‹Ÿè½´å½“å‰çš„å®æ—¶è§’åº¦ (åº¦)
+    float target_angle;     // æœ€ç»ˆæƒ³è¦åˆ°è¾¾çš„è§’åº¦ (åº¦)
+    float velocity_deg_ms;  // é€Ÿåº¦ï¼šæ¯æ¯«ç§’è½¬å¤šå°‘åº¦ (0.1åº¦/ms = 100åº¦/ç§’)
+    uint32_t last_tick;     // ä¸Šæ¬¡æ›´æ–°çš„æ—¶é—´æˆ³
 } Virtual_Axis_t;
 
 // =============================================================
-//  º¯ÊıÉùÃ÷
+//  å‡½æ•°å£°æ˜
 // =============================================================
 
-// ³õÊ¼»¯ËùÓĞÉÏ²ã»ú¹¹
+// åˆå§‹åŒ–æ‰€æœ‰ä¸Šå±‚æœºæ„
 void Mechanism_Init(void);
 
 /**
- * @brief ¿ØÖÆµæÇò»ú¹¹ (3¸öÓîÊ÷µç»úÍ¬²½ÔË¶¯)
- * @param angle_rad: Ä¿±ê½Ç¶È (»¡¶È)
- * @param kp: ¸Õ¶ÈÏµÊı (½¨Òé 0.05 ~ 0.5)
+ * @brief æ§åˆ¶å«çƒæœºæ„ (3ä¸ªå®‡æ ‘ç”µæœºåŒæ­¥è¿åŠ¨)
+ * @param angle_rad: ç›®æ ‡è§’åº¦ (å¼§åº¦)
+ * @param kp: åˆšåº¦ç³»æ•° (å»ºè®® 0.05 ~ 0.5)
  */
-void Mechanism_Cushion_Trigger(float peak_speed_deg_s);
-
-// ¸´Î»¶¯×÷ (ÂıËÙ»Øµ½Æğµã)
-void Mechanism_Cushion_Return(void);
-
-// ¹ì¼£¸üĞÂº¯Êı (Ğè·ÅÈë 1ms ¸ßÆµÈÎÎñ)
-void Mechanism_Cushion_Update_Loop(uint32_t dt_ms);
+void Mechanism_Cushion_SetAngle(float angle_rad, float kp);
 
 /**
- * @brief ¿ØÖÆ·¢Çò»ú¹¹ (1¸öÓîÊ÷µç»ú)
- * @param speed_rad_s: Ä¿±ê×ªËÙ (rad/s)
- * @note  ÓîÊ÷µç»ú×ªËÙ½Ï¸ß£¬×¢Òâ°²È«
+ * @brief æ§åˆ¶å‘çƒæœºæ„ (1ä¸ªå®‡æ ‘ç”µæœº)
+ * @param speed_rad_s: ç›®æ ‡è½¬é€Ÿ (rad/s)
+ * @note  å®‡æ ‘ç”µæœºè½¬é€Ÿè¾ƒé«˜ï¼Œæ³¨æ„å®‰å…¨
  */
 void Mechanism_Serve_SetAngle(float speed_rad_s);
 
 /**
- * @brief ¿ØÖÆ¸©Ñö»ú¹¹ (1¸ö´ó½® M3508)
- * @param angle_deg: Ä¿±ê½Ç¶È (½Ç¶ÈÖÆ£¬ÀıÈç 45.0 ¶È)
+ * @brief æ§åˆ¶ä¿¯ä»°æœºæ„ (1ä¸ªå¤§ç–† M3508)
+ * @param angle_deg: ç›®æ ‡è§’åº¦ (è§’åº¦åˆ¶ï¼Œä¾‹å¦‚ 45.0 åº¦)
  */
 void Mechanism_Pitch_SetAngle(float angle_deg);
 

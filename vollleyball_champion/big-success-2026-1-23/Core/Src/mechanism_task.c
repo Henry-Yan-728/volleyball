@@ -2,15 +2,18 @@
 #include "unitree_driver.h"
 #include "dji_motor.h"
 #include "cmsis_os.h"
+#include <math.h>
 // =============================================================
 //  初始化
 // =============================================================
+		// 初始化：起始0度，目标0度，速度 0.05度/ms (即50度/秒，较慢平滑)
+		Virtual_Axis_t v_axis = {0.0f, 0.0f, 0.1f, 0}; 
 void Mechanism_Init(void)
 {
     // 1. 初始化大疆电机 (会调用内部的 dji_motors_init)
     // 确保你已经把 dji_motor.c 里的初始化代码改好了
-	
     dji_motors_init();
+
 }
 
 // =============================================================
@@ -54,17 +57,46 @@ void Mechanism_Serve_SetAngle(float angle_rad)
 // =============================================================
 void Mechanism_Pitch_SetAngle(float angle_deg)
 {
-    // 1. 获取电机实例
-    DJI_Motor_Instance* pitch_motor = dji_motor_get_instance(DJI_INDEX_PITCH);
+	v_axis.target_angle = angle_deg;
+}
+
+/* ----------------- 2. 轨迹更新函数 ----------------- */
+// 该函数需要在主循环或定时器中频繁调用 (建议 1ms 一次)
+void Update_Virtual_Axis(void)
+{
+    uint32_t now = HAL_GetTick();
     
-    if (pitch_motor != NULL)
+    // 简单的非阻塞延时，确保控制周期稳定
+    if (now - v_axis.last_tick < 1) return; 
+    v_axis.last_tick = now;
+
+    // --- 轨迹插补算法 (Ramp) ---
+    float error = v_axis.target_angle - v_axis.current_angle;
+    
+    // 如果误差很小，直接到达目标
+    if (fabs(error) <= v_axis.velocity_deg_ms) {
+        v_axis.current_angle = v_axis.target_angle;
+    }
+    else {
+        // 根据方向增加或减少当前角度
+        if (error > 0) v_axis.current_angle += v_axis.velocity_deg_ms;
+        else           v_axis.current_angle -= v_axis.velocity_deg_ms;
+    }
+
+    // --- 同步分发给物理电机 ---
+    DJI_Motor_Instance* m_right = dji_motor_get_instance(0); // 假设 ID 0x201
+    DJI_Motor_Instance* m_left  = dji_motor_get_instance(1); // 假设 ID 0x202
+
+    if (m_right && m_left)
     {
-        // 2. 角度转编码器值
-        // 假设初始位置为0，并且电机与机构是 1:1 连接 (如果带减速箱需乘以减速比)
-        // dji_degree2encoder 已经在 dji_motor.c 中实现
-        int32_t target_encoder = dji_degree2encoder(angle_deg);
+        // 转换角度为编码器数值 (8192 line)
+        int32_t encoder_pos = dji_degree2encoder(v_axis.current_angle);
+
+        // 【关键逻辑】实现同轴异向
+        // 左电机：正向旋转 encoder_pos
+        dji_motor_set_location(m_left, encoder_pos);
         
-        // 3. 发送位置指令
-        dji_motor_set_location(pitch_motor, target_encoder);
+        // 右电机：反向旋转 -encoder_pos
+        dji_motor_set_location(m_right, -encoder_pos);
     }
 }

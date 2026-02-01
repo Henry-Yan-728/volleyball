@@ -72,7 +72,7 @@ const osMutexAttr_t rc_mutex_attributes = {
 remote_engineer_t g_remote_data = {0}; // 最终解算出的遥控器结构体
 uint8_t remote_Buffer[RC_BUFFER_SIZE]; // 串口 DMA 接收原始数据的内存空间
 uint8_t processsed_command[COMMAND_LENGTH]; // 指令解析临时缓冲区
-float pitch = 0.0f;
+float pitch = 1.86f;
 // 外部引用原始遥控器数据结构
 extern rc_info_t rc; 
 
@@ -160,7 +160,7 @@ void StartTask02(void *argument)
   float target_vx = 0, target_vy = 0, target_vr = 0;
   
   // --- 2. 机构动作参数配置 (角度/速度) ---
-  const float CUSHION_ORIGIN_DEG = 57.0f;   // 垫球机构复位角度 (deg)
+  const float CUSHION_ORIGIN_DEG = 52.0f;   // 垫球机构复位角度 (deg)
   const float CUSHION_ACTION_DEG = 114.0f;  // 垫球机构动作角度 (deg)
   const float SERVE_READY_RAD    = 30.0f;   // 发球电机复位转速
   const float SERVE_ACTION_RAD   = 210.0f;  // 发球电机动作转速
@@ -345,7 +345,7 @@ void StartTask02(void *argument)
       switch (serve_state) {
           case ACTION_STEP_1:
               // 动作：垫球机构配合抬起，发球电机转动
-              Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, 1.56f);
+              Mechanism_Cushion_SetAngle(CUSHION_ACTION_DEG, pitch);
               Mechanism_Serve_SetAngle(SERVE_ACTION_RAD); 
 
               // 延时 300ms 后切换到复位阶段
@@ -356,7 +356,7 @@ void StartTask02(void *argument)
 
           case ACTION_STEP_2:
               // 动作：垫球机构复位，发球电机保持转动确保球射出
-              Mechanism_Cushion_SetAngle(CUSHION_ORIGIN_DEG, 0.3f);
+              Mechanism_Cushion_SetAngle(CUSHION_ORIGIN_DEG, 0.28f);
               Mechanism_Serve_SetAngle(SERVE_ACTION_RAD);
 
               // 延时总计 800ms 后动作结束，状态机回到空闲
@@ -461,7 +461,7 @@ void StartTask04(void *argument)
 void StartTask05(void *argument)
 {
   /* USER CODE BEGIN StartTask05 */
-    #define CUSHION_READY_DEG   57.0f 
+    #define CUSHION_READY_DEG   52.0f 
     #define CUSHION_SPEED       1.86f
     #define ACTION_HOLD_MS      800
     const float CUSHION_ACTION_DEG = 114.0f;
@@ -557,6 +557,7 @@ void StartDefaultTask(void *argument)
   /* USER CODE BEGIN StartDefaultTask */
   for(;;)
   {
+		Update_Virtual_Axis();
       osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
