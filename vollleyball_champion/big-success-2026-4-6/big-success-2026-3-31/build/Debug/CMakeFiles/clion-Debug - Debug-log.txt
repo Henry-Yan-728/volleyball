@@ -1,0 +1,42 @@
+"E:\CLion 2025.2.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug --preset Debug -S E:\2026volleyball\volleyball\vollleyball_champion\volleyball_G4_2026_3_14\big-success-2026-3-28_with_begin\big-success-2026-3-28_with_begin\big-success-2026-2-5_without_unitree_planner -B E:\2026volleyball\volleyball\vollleyball_champion\volleyball_G4_2026_3_14\big-success-2026-3-28_with_begin\big-success-2026-3-28_with_begin\big-success-2026-2-5_without_unitree_planner\build\Debug
+-- The C compiler identification is GNU 13.3.1
+-- The CXX compiler identification is GNU 13.3.1
+-- Check for working C compiler: F:/STM32/STM32CubeCLT_1.19.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc.exe
+CMake Warning in E:/2026volleyball/volleyball/vollleyball_champion/volleyball_G4_2026_3_14/big-success-2026-3-28_with_begin/big-success-2026-3-28_with_begin/big-success-2026-2-5_without_unitree_planner/build/Debug/CMakeFiles/CMakeScratch/TryCompile-dxm7oq/CMakeLists.txt:
+  The object file directory
+
+    E:/2026volleyball/volleyball/vollleyball_champion/volleyball_G4_2026_3_14/big-success-2026-3-28_with_begin/big-success-2026-3-28_with_begin/big-success-2026-2-5_without_unitree_planner/build/Debug/CMakeFiles/CMakeScratch/TryCompile-dxm7oq/CMakeFiles/cmTC_752ba.dir/./
+
+  has 267 characters.  The maximum full path to an object file is 250
+  characters (see CMAKE_OBJECT_PATH_MAX).  Object file
+
+    testCCompiler.c.obj
+
+  cannot be safely placed under this directory.  The build may not work
+  correctly.
+
+
+CMake Error:
+  Running
+
+   'F:/STM32/STM32CubeCLT_1.19.0/Ninja/bin/ninja.exe' '-C' 'E:/2026volleyball/volleyball/vollleyball_champion/volleyball_G4_2026_3_14/big-success-2026-3-28_with_begin/big-success-2026-3-28_with_begin/big-success-2026-2-5_without_unitree_planner/build/Debug/CMakeFiles/CMakeScratch/TryCompile-dxm7oq' '-t' 'recompact'
+
+  failed with:
+
+   ninja: error: build.ninja:30: loading 'CMakeFiles/rules.ninja': 绯荤粺鎵句笉鍒版寚瀹氱殑璺緞銆?
+
+  
+
+  include CMakeFiles/rules.ninja
+
+                                ^ near here
+
+
+
+CMake Error at E:/CLion 2025.2.4/bin/cmake/win/x64/share/cmake-4.0/Modules/CMakeTestCCompiler.cmake:56 (try_compile):
+  Failed to generate test project build system.
+Call Stack (most recent call first):
+  CMakeLists.txt:28 (project)
+
+
+-- Configuring incomplete, errors occurred!

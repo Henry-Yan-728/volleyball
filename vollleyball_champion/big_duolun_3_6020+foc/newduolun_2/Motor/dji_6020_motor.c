@@ -150,9 +150,9 @@ void Dji_6020_motor_control(FDCAN_RxHeaderTypeDef rx_header,uint8_t rx_data[8]){
 				else if(set_6020_mode_s[i]==SPEED_MODE){
 					Pid_incremental_cal(&motor_6020_pid_g[i].spd,motor_6020_inf[i].speed_rpm,set_6020_spd_s[i]);
 				}
-					Can_dji_6020_motor_send(&hfdcan1,CAN_6020_MOTOR_ALL_ID,(int16_t)motor_6020_pid_g[0].spd.now_out);
+//					Can_dji_6020_motor_send(&hfdcan1,CAN_6020_MOTOR_ALL_ID,(int16_t)motor_6020_pid_g[0].spd.now_out);
 						  //将PID的计算结果通过 CAN1 发到电机
-
+					Can_dji_6020_motor_send(&hfdcan1,CAN_6020_MOTOR_ALL_ID,0);
 
 
 }

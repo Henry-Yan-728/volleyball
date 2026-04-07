@@ -38,5 +38,7 @@ HAL_StatusTypeDef sendCANSetMotorKK(uint32_t moduleId, uint32_t motorId, float K
 
 void get_Unitree_pos(uint32_t motorId);
 
+void Unitree_Rx_Handler(FDCAN_RxHeaderTypeDef* rx_header, uint8_t rx_data[64]);
+
 //void Unitree_SetCurrentPosAsZero(uint32_t motorId);
 #endif

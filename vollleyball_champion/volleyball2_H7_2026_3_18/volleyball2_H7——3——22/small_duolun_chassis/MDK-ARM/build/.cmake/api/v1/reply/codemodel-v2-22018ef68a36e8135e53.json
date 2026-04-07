@@ -1,0 +1,141 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.27"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Volleyball2_chassis+Volleyball2_chassis",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_Application_MDK-ARM::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_Application_MDK-ARM-d3b3c5d991144a96ffab.json",
+					"name" : "Group_Application_MDK-ARM",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_Application_User_Core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_Application_User_Core-33a0de7d1e6f812602ad.json",
+					"name" : "Group_Application_User_Core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_Drivers_CMSIS::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_Drivers_CMSIS-301f44fa8ed4d15e0531.json",
+					"name" : "Group_Drivers_CMSIS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_Drivers_STM32G4xx_HAL_Driver::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_Drivers_STM32G4xx_HAL_Driver-75fbdd58469716013508.json",
+					"name" : "Group_Drivers_STM32G4xx_HAL_Driver",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_chassis_task::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_chassis_task-fd0d86e90dc52e9818db.json",
+					"name" : "Group_chassis_task",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_control::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_control-5dcdcd67bdf3786baad7.json",
+					"name" : "Group_control",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_fdcan_bsp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_fdcan_bsp-1076e9fcecdccfd2a9cf.json",
+					"name" : "Group_fdcan_bsp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Group_motor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Group_motor-322319c5212e2b106c1c.json",
+					"name" : "Group_motor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Volleyball2_chassis+Volleyball2_chassis::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Volleyball2_chassis+Volleyball2_chassis-04205e1500b0eaef9620.json",
+					"name" : "Volleyball2_chassis+Volleyball2_chassis",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "database::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-database-8fca466eb5e33abe1c21.json",
+					"name" : "database",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/build",
+		"source" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

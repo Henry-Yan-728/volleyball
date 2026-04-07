@@ -1,0 +1,7 @@
+exitonerror 1
+r
+h
+loadfile E:\2026volleyball\volleyball\vollleyball_champion\volleyball2_H7\volleyball2_H7\MDK-ARM\volleyball2_H7\volleyball2_H7.hex
+r
+g
+qc

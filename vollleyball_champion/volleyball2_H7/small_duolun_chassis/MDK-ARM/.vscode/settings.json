@@ -1,0 +1,8 @@
+{
+    "debug.hideSlowPreLaunchWarning": true,
+    "debug.showInStatusBar": "never",
+    "clangd.arguments": [
+        "--compile-commands-dir=e:\\2026volleyball\\volleyball\\vollleyball_champion\\volleyball2_H7\\small_duolun_chassis\\MDK-ARM\\out\\Volleyball2_chassis\\Volleyball2_chassis"
+    ],
+    "cmake.sourceDirectory": "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis"
+}

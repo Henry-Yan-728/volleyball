@@ -1,0 +1,91 @@
+T7EEC 000:004.292   SEGGER J-Link V9.24 Log File
+T7EEC 000:004.407   DLL Compiled: Mar  3 2026 16:24:17
+T7EEC 000:004.429   Logging started @ 2026-03-14 08:35
+T7EEC 000:004.451   Process: F:\Keil\UV4\UV4.exe
+T7EEC 000:004.479 - 4.472ms 
+T7EEC 000:004.503 JLINK_SetWarnOutHandler(...)
+T7EEC 000:004.523 - 0.021ms 
+T7EEC 000:004.547 JLINK_OpenEx(...)
+T7EEC 000:007.487   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T7EEC 000:008.816   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T7EEC 000:010.259   Hardware: V7.00
+T7EEC 000:010.312   S/N: 20090928
+T7EEC 000:010.343   OEM: SEGGER
+T7EEC 000:010.373   Feature(s): JFlash, RDI, GDB, FlashDL, FlashBP
+T7EEC 000:010.600   Bootloader: (FW returned invalid version)
+T7EEC 000:011.443   TELNET listener socket opened on port 19021
+T7EEC 000:011.550   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T7EEC 000:011.746   WEBSRV Webserver running on local port 19080
+T7EEC 000:011.867   Looking for J-Link GUI Server exe at: F:\Keil\ARM\Segger\JLinkGUIServer.exe
+T7EEC 000:012.100   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V924\JLinkGUIServer.exe
+T7EEC 000:012.233   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V924\JLinkGUIServer.exe
+T7EEC 000:018.173   J-Link GUI Server info: "J-Link GUI server V9.24 "
+T7EEC 000:018.838 - 14.283ms returns "O.K."
+T7EEC 000:018.886 JLINK_GetEmuCaps()
+T7EEC 000:018.912 - 0.023ms returns 0x88EA5833
+T7EEC 000:018.935 JLINK_TIF_GetAvailable(...)
+T7EEC 000:019.090 - 0.155ms 
+T7EEC 000:019.132 JLINK_SetErrorOutHandler(...)
+T7EEC 000:019.153 - 0.020ms 
+T7EEC 000:019.194 JLINK_ExecCommand("ProjectFile = "E:\2026volleyball\volleyball\vollleyball_champion\volleyball2_H7\remote(r1)\v4remote(r2)\MDK-ARM\JLinkSettings.ini"", ...). 
+T7EEC 000:031.243   Ref file found at: F:\Keil\ARM\Segger\JLinkDevices.ref
+T7EEC 000:031.501   REF file references invalid XML file: C:\Program Files\SEGGER\JLink_V924\JLinkDevices.xml
+T7EEC 000:032.619 - 13.428ms returns 0x00
+T7EEC 000:035.541 JLINK_ExecCommand("Device = STM32F103RC", ...). 
+T7EEC 000:038.131   Device "STM32F103RC" selected.
+T7EEC 000:038.642 - 3.100ms returns 0x00
+T7EEC 000:038.681   ERROR: Unknown command
+T7EEC 000:038.716 JLINK_GetHardwareVersion()
+T7EEC 000:038.738 - 0.020ms returns 70000
+T7EEC 000:038.759 JLINK_GetDLLVersion()
+T7EEC 000:038.779 - 0.019ms returns 92400
+T7EEC 000:038.800 JLINK_GetOEMString(...)
+T7EEC 000:038.821 JLINK_GetFirmwareString(...)
+T7EEC 000:038.840 - 0.019ms 
+T7EEC 000:046.510 JLINK_GetDLLVersion()
+T7EEC 000:046.551 - 0.040ms returns 92400
+T7EEC 000:046.572 JLINK_GetCompileDateTime()
+T7EEC 000:046.591 - 0.018ms 
+T7EEC 000:048.192 JLINK_GetFirmwareString(...)
+T7EEC 000:048.233 - 0.040ms 
+T7EEC 000:049.957 JLINK_GetHardwareVersion()
+T7EEC 000:049.992 - 0.035ms returns 70000
+T7EEC 000:051.729 JLINK_GetSN()
+T7EEC 000:051.771 - 0.041ms returns 20090928
+T7EEC 000:053.247 JLINK_GetOEMString(...)
+T7EEC 000:056.242 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T7EEC 000:056.636 - 0.393ms returns 0x00
+T7EEC 000:056.662 JLINK_HasError()
+T7EEC 000:056.698 JLINK_SetSpeed(5000)
+T7EEC 000:056.773 - 0.077ms 
+T7EEC 000:056.796 JLINK_GetId()
+T7EEC 000:058.570   InitTarget() start
+T7EEC 000:058.618    J-Link Script File: Executing InitTarget()
+T7EEC 000:061.219   SWD selected. Executing JTAG -> SWD switching sequence.
+T7EEC 000:069.984   Error: Failed to initialize DAP.
+T7EEC 000:071.850   Can not attach to CPU. Trying connect under reset.
+T7EEC 000:127.959   SWD selected. Executing JTAG -> SWD switching sequence.
+T7EEC 000:132.195   Error: Failed to initialize DAP.
+T7EEC 000:134.126   Connecting to CPU via connect under reset failed.
+T7EEC 000:186.358   
+  ***** Error: 
+T7EEC 000:186.569   J-Link script file function InitTarget() returned with error code -1
+T7EEC 000:191.704   InitTarget() end - Took 127ms
+T7EEC 000:194.422   Connect failed. Resetting via Reset pin and trying again.
+T7EEC 000:259.672   InitTarget() start
+T7EEC 000:259.741    J-Link Script File: Executing InitTarget()
+T7EEC 000:261.988   SWD selected. Executing JTAG -> SWD switching sequence.
+T7EEC 000:265.797   Error: Failed to initialize DAP.
+T7EEC 000:267.556   Can not attach to CPU. Trying connect under reset.
+T7EEC 000:320.257   SWD selected. Executing JTAG -> SWD switching sequence.
+T7EEC 000:323.807   Error: Failed to initialize DAP.
+T7EEC 000:326.345   Connecting to CPU via connect under reset failed.
+T7EEC 000:376.979   
+  ***** Error: 
+T7EEC 000:377.042   J-Link script file function InitTarget() returned with error code -1
+T7EEC 000:380.188   InitTarget() end - Took 117ms
+T7EEC 000:380.246 - 323.449ms returns 0x00000000
+T7EEC 002:301.872 JLINK_Close()
+T7EEC 002:312.866 - 10.992ms
+T7EEC 002:312.915   
+T7EEC 002:312.936   Closed

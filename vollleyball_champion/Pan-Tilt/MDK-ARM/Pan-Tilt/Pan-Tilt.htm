@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Pan-Tilt\Pan-Tilt.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Pan-Tilt\Pan-Tilt.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Fri Jan 30 17:25:50 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Wed Feb  4 18:06:39 2026
 <BR><P>
 <H3>Maximum Stack Usage =        296 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1368,7 +1368,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e0]"></a>gimbal_control_init</STRONG> (Thumb, 136 bytes, Stack size 16 bytes, control.o(.text.gimbal_control_init))
+<P><STRONG><a name="[e0]"></a>gimbal_control_init</STRONG> (Thumb, 136 bytes, Stack size 16 bytes, pan_tilt_control.o(.text.gimbal_control_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_control_init &rArr; ramp_init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ramp_init
@@ -1377,7 +1377,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e3]"></a>gimbal_control_loop</STRONG> (Thumb, 164 bytes, Stack size 32 bytes, control.o(.text.gimbal_control_loop))
+<P><STRONG><a name="[e3]"></a>gimbal_control_loop</STRONG> (Thumb, 164 bytes, Stack size 32 bytes, pan_tilt_control.o(.text.gimbal_control_loop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = gimbal_control_loop &rArr; ramp_calc &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ramp_calc
@@ -1387,7 +1387,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e6]"></a>gimbal_set_angle</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, control.o(.text.gimbal_set_angle))
+<P><STRONG><a name="[e6]"></a>gimbal_set_angle</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, pan_tilt_control.o(.text.gimbal_set_angle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = gimbal_set_angle &rArr; ramp_set_target
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ramp_set_target

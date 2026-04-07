@@ -1,0 +1,194 @@
+﻿#include "mechanism_task.h"
+
+#include <math.h>
+
+#include "Pan_Tilt_control.h"
+#include "FreeRTOS.h"
+#include "cmsis_os.h"
+#include "dji_motor.h"
+#include "task.h"
+#include "unitree_motor.h"
+
+#ifndef M_PI
+#define M_PI 3.1415926535f
+#endif
+
+#define DEG_TO_RAD_FACTOR (M_PI / 180.0f)
+#define UNITREE_TARGET_COUNT 4U
+#ifndef UNITREE_CONTROL_ENABLE
+#define UNITREE_CONTROL_ENABLE 0U
+#endif
+#ifndef UNITREE_SEND_PERIOD_MS
+#define UNITREE_SEND_PERIOD_MS 10U
+#endif
+
+typedef struct {
+    float position;
+    float kp;
+    float kd;
+} UnitreeTarget_t;
+
+Virtual_Axis_t v_axis = {0.0f, 0.0f, 0.1f, 0U};
+
+float current_yaw_speed = 0.0f;
+float current_pitch_speed = 0.0f;
+
+static const uint8_t s_unitree_motor_ids[UNITREE_TARGET_COUNT] = {
+    UNITREE_ID_CUSHION_1,
+    UNITREE_ID_CUSHION_2,
+    UNITREE_ID_CUSHION_3,
+    UNITREE_ID_SERVE
+};
+
+static UnitreeTarget_t s_unitree_targets[UNITREE_TARGET_COUNT];
+static uint8_t s_unitree_targets_ready = 0U;
+static uint8_t s_unitree_tx_index = 0U;
+static uint32_t s_unitree_last_tx_tick = 0U;
+
+static float convert_deg_to_unitree_rad(float deg)
+{
+    return deg * DEG_TO_RAD_FACTOR * UNITREE_REDUCTION_RATIO;
+}
+
+static void mechanism_set_unitree_defaults(void)
+{
+    for (uint8_t i = 0U; i < UNITREE_TARGET_COUNT; i++) {
+        s_unitree_targets[i].position = 0.0f;
+        s_unitree_targets[i].kp = 0.0f;
+        s_unitree_targets[i].kd = 0.1f;
+    }
+}
+
+static void mechanism_push_unitree_targets(void)
+{
+    uint8_t motor_id;
+    float position;
+    float kp;
+    float kd;
+    uint32_t now;
+
+#if (UNITREE_CONTROL_ENABLE == 0U)
+    return;
+#endif
+
+    if (s_unitree_targets_ready == 0U) {
+        return;
+    }
+
+    now = HAL_GetTick();
+    if ((now - s_unitree_last_tx_tick) < UNITREE_SEND_PERIOD_MS) {
+        return;
+    }
+    s_unitree_last_tx_tick = now;
+
+    // Probe mode: spread the four motors across time so UART stalls
+    // cannot monopolize the 1 ms mechanism loop.
+    taskENTER_CRITICAL();
+    motor_id = s_unitree_motor_ids[s_unitree_tx_index];
+    position = s_unitree_targets[s_unitree_tx_index].position;
+    kp = s_unitree_targets[s_unitree_tx_index].kp;
+    kd = s_unitree_targets[s_unitree_tx_index].kd;
+    taskEXIT_CRITICAL();
+
+    UnitreeMotor_SetPosition(motor_id, position, kp, kd);
+
+    s_unitree_tx_index++;
+    if (s_unitree_tx_index >= UNITREE_TARGET_COUNT) {
+        s_unitree_tx_index = 0U;
+    }
+}
+
+void Mechanism_Init(void)
+{
+    dji_motors_init();
+    gimbal_control_init();
+#if (UNITREE_CONTROL_ENABLE != 0U)
+    UnitreeMotor_Init();
+#endif
+
+    mechanism_set_unitree_defaults();
+    s_unitree_targets_ready = 1U;
+
+    HAL_Delay(100);
+}
+
+void Mechanism_Cushion_SetAngle(float angle_deg, float kp)
+{
+    const float target_rad = convert_deg_to_unitree_rad(angle_deg);
+    const float kd_default = 0.2f;
+
+    taskENTER_CRITICAL();
+    for (uint8_t i = 0U; i < 3U; i++) {
+        s_unitree_targets[i].position = target_rad;
+        s_unitree_targets[i].kp = kp;
+        s_unitree_targets[i].kd = kd_default;
+    }
+    taskEXIT_CRITICAL();
+}
+
+void Mechanism_Zero(void)
+{
+    taskENTER_CRITICAL();
+    for (uint8_t i = 0U; i < UNITREE_TARGET_COUNT; i++) {
+        s_unitree_targets[i].position = 0.0f;
+        s_unitree_targets[i].kp = 0.0f;
+        s_unitree_targets[i].kd = 0.1f;
+    }
+    taskEXIT_CRITICAL();
+
+    mechanism_push_unitree_targets();
+}
+
+void Mechanism_Serve_SetAngle(float angle_deg)
+{
+    const float target_rad = convert_deg_to_unitree_rad(angle_deg);
+
+    taskENTER_CRITICAL();
+    s_unitree_targets[3].position = target_rad;
+    s_unitree_targets[3].kp = 1.0f;
+    s_unitree_targets[3].kd = 0.1f;
+    taskEXIT_CRITICAL();
+}
+
+void Mechanism_Dian_Pitch_SetAngle(float angle_deg)
+{
+    v_axis.target_angle = angle_deg;
+}
+
+void Update_Virtual_Axis(void)
+{
+    const uint32_t now = HAL_GetTick();
+
+    if (now - v_axis.last_tick < 1U) {
+        return;
+    }
+    v_axis.last_tick = now;
+
+    const float error = v_axis.target_angle - v_axis.current_angle;
+
+    if (fabsf(error) <= v_axis.velocity_deg_ms) {
+        v_axis.current_angle = v_axis.target_angle;
+    } else {
+        if (error > 0.0f) {
+            v_axis.current_angle += v_axis.velocity_deg_ms;
+        } else {
+            v_axis.current_angle -= v_axis.velocity_deg_ms;
+        }
+    }
+
+    DJI_Motor_Instance *m_right = dji_motor_get_instance(0U);
+    DJI_Motor_Instance *m_left = dji_motor_get_instance(1U);
+
+    if ((m_right != NULL) && (m_left != NULL)) {
+        const int32_t encoder_pos = dji_angle_to_encoder(v_axis.current_angle, EXTERNAL_MECHANISM_RATIO);
+
+        dji_motor_set_location(m_left, encoder_pos);
+        dji_motor_set_location(m_right, -encoder_pos);
+    }
+}
+
+void Mechanism_Loop_1ms(void)
+{
+    mechanism_push_unitree_targets();
+    gimbal_set_speed(current_yaw_speed, current_pitch_speed);
+}

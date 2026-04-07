@@ -1,0 +1,37 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/CMakeFiles/Volleyball2_chassis+Volleyball2_chassis-build"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/CMakeFiles/Volleyball2_chassis+Volleyball2_chassis-build.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-build.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-configure.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-patch.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-update.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-download.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-mkdir.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Volleyball2_chassis+Volleyball2_chassis"
+		],
+		"name" : "Volleyball2_chassis+Volleyball2_chassis-build"
+	}
+}

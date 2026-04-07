@@ -1,0 +1,70 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: Configure (Debug)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake: Build (Debug)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "OpenOCD: Flash (CMSIS-DAP)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\openocd-flash.ps1",
+        "-ElfPath",
+        "${workspaceFolder}\\build\\Debug\\volleyball2_H7.elf",
+        "-AdapterSpeed",
+        "1000"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "CMake: Build (Debug)"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build + Flash (Debug)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "OpenOCD: Flash (CMSIS-DAP)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

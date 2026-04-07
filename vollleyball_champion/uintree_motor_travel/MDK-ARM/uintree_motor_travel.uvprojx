@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32G474xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;..\uintree;..\planner</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc;../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32G4xx/Include;../Drivers/CMSIS/Include;../uintree;../planner;..\fdacan_bsp</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -553,6 +553,21 @@
               <FileName>unitree_driver.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\uintree\unitree_driver.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fdcan_bsp</GroupName>
+          <Files>
+            <File>
+              <FileName>fdcan_bsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\fdacan_bsp\fdcan_bsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>fdcan_bsp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\fdacan_bsp\fdcan_bsp.h</FilePath>
             </File>
           </Files>
         </Group>

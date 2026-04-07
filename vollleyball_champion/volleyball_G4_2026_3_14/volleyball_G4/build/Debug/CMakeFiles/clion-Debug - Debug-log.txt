@@ -1,0 +1,5 @@
+"E:\CLion 2025.2.4\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug --preset Debug -S E:\2026volleyball\volleyball\vollleyball_champion\volleyball_G4_2026_3_14\volleyball_G4 -B E:\2026volleyball\volleyball\vollleyball_champion\volleyball_G4_2026_3_14\volleyball_G4\build\Debug
+Build type: Debug
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/2026volleyball/volleyball/vollleyball_champion/volleyball_G4_2026_3_14/volleyball_G4/build/Debug

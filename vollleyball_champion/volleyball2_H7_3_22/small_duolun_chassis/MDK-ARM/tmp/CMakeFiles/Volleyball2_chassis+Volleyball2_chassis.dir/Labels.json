@@ -1,0 +1,52 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/CMakeFiles/Volleyball2_chassis+Volleyball2_chassis"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/CMakeFiles/Volleyball2_chassis+Volleyball2_chassis.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/CMakeFiles/Volleyball2_chassis+Volleyball2_chassis-complete.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-build.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-configure.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-database.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-download.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-executes.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-install.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-mkdir.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-patch.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-test.rule"
+		},
+		{
+			"file" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis/src/Volleyball2_chassis+Volleyball2_chassis-stamp/Volleyball2_chassis+Volleyball2_chassis-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"Volleyball2_chassis+Volleyball2_chassis"
+		],
+		"name" : "Volleyball2_chassis+Volleyball2_chassis"
+	}
+}

@@ -1,0 +1,7 @@
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/CMakeFiles/volleyball2_H7.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/CMakeFiles/edit_cache.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/CMakeFiles/rebuild_cache.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/cmake/stm32cubemx/CMakeFiles/FreeRTOS.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/volleyball2_H7_3_18/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

@@ -27,7 +27,7 @@
 "pan-tilt\dji_motor.o"
 "pan-tilt\pid.o"
 "pan-tilt\fdcan_bsp.o"
-"pan-tilt\control.o"
+"pan-tilt\pan_tilt_control.o"
 "pan-tilt\ramp.o"
 --strict --scatter "Pan-Tilt\Pan-Tilt.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

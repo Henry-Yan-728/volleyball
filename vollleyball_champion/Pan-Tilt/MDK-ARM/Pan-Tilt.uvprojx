@@ -570,14 +570,14 @@
           <GroupName>control</GroupName>
           <Files>
             <File>
-              <FileName>control.c</FileName>
+              <FileName>Pan_Tilt_control.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\control\control.c</FilePath>
+              <FilePath>..\control\Pan_Tilt_control.c</FilePath>
             </File>
             <File>
-              <FileName>control.h</FileName>
+              <FileName>Pan_Tilt_control.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\control\control.h</FilePath>
+              <FilePath>..\control\Pan_Tilt_control.h</FilePath>
             </File>
           </Files>
         </Group>

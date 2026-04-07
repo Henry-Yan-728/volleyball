@@ -1,0 +1,110 @@
+T6100 000:004.543   SEGGER J-Link V9.24a Log File
+T6100 000:004.652   DLL Compiled: Mar  5 2026 10:55:30
+T6100 000:004.673   Logging started @ 2026-03-08 13:01
+T6100 000:004.694   Process: F:\Keil\UV4\UV4.exe
+T6100 000:004.721 - 4.713ms 
+T6100 000:004.745 JLINK_SetWarnOutHandler(...)
+T6100 000:004.765 - 0.021ms 
+T6100 000:004.789 JLINK_OpenEx(...)
+T6100 000:008.273   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T6100 000:009.725   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T6100 000:011.433   Hardware: V7.00
+T6100 000:011.484   S/N: 20090928
+T6100 000:011.515   OEM: SEGGER
+T6100 000:011.547   Feature(s): JFlash, RDI, GDB, FlashDL, FlashBP
+T6100 000:011.784   Bootloader: (FW returned invalid version)
+T6100 000:012.522   TELNET listener socket opened on port 19021
+T6100 000:012.626   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T6100 000:012.870   WEBSRV Webserver running on local port 19080
+T6100 000:013.007   Looking for J-Link GUI Server exe at: F:\Keil\ARM\Segger\JLinkGUIServer.exe
+T6100 000:013.242   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V924a\JLinkGUIServer.exe
+T6100 000:013.370   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V924a\JLinkGUIServer.exe
+T6100 000:084.540   J-Link GUI Server info: "J-Link GUI server V9.24a "
+T6100 000:093.843 - 89.043ms returns "O.K."
+T6100 000:093.898 JLINK_GetEmuCaps()
+T6100 000:093.922 - 0.022ms returns 0x88EA5833
+T6100 000:093.946 JLINK_TIF_GetAvailable(...)
+T6100 000:094.145 - 0.199ms 
+T6100 000:094.181 JLINK_SetErrorOutHandler(...)
+T6100 000:094.203 - 0.021ms 
+T6100 000:094.248 JLINK_ExecCommand("ProjectFile = "E:\2026volleyball\volleyball\vollleyball_champion\UNITREE485_3_8\MDK-ARM\JLinkSettings.ini"", ...). 
+T6100 000:106.467   Ref file found at: F:\Keil\ARM\Segger\JLinkDevices.ref
+T6100 000:106.737   REF file references invalid XML file: C:\Program Files\SEGGER\JLink_V924a\JLinkDevices.xml
+T6100 000:107.781 - 13.535ms returns 0x00
+T6100 000:109.990 JLINK_ExecCommand("Device = STM32H723VGHx", ...). 
+T6100 000:110.947   Flash bank @ 0x08000000: SFL: Parsing sectorization info from ELF file
+T6100 000:110.989     FlashDevice.SectorInfo[0]: .SectorSize = 0x00020000, .SectorStartAddr = 0x00000000
+T6100 000:111.020   FlashBank @0x08000000: Sectorization info from SFL ELF file ignored because sectorization override from DLL / XML file is active.
+T6100 000:111.343   Flash bank @ 0x90000000: SFL: Parsing sectorization info from ELF file
+T6100 000:111.379     FlashDevice.SectorInfo[0]: .SectorSize = 0x00010000, .SectorStartAddr = 0x00000000
+T6100 000:116.379   Device "STM32H723VG" selected.
+T6100 000:116.926 - 6.935ms returns 0x00
+T6100 000:116.967   ERROR: Unknown command
+T6100 000:117.003 JLINK_GetHardwareVersion()
+T6100 000:117.025 - 0.020ms returns 70000
+T6100 000:117.046 JLINK_GetDLLVersion()
+T6100 000:117.066 - 0.019ms returns 92401
+T6100 000:117.086 JLINK_GetOEMString(...)
+T6100 000:117.107 JLINK_GetFirmwareString(...)
+T6100 000:117.127 - 0.019ms 
+T6100 000:121.146 JLINK_GetDLLVersion()
+T6100 000:121.190 - 0.044ms returns 92401
+T6100 000:121.215 JLINK_GetCompileDateTime()
+T6100 000:121.234 - 0.019ms 
+T6100 000:122.557 JLINK_GetFirmwareString(...)
+T6100 000:122.601 - 0.043ms 
+T6100 000:123.855 JLINK_GetHardwareVersion()
+T6100 000:123.896 - 0.040ms returns 70000
+T6100 000:125.371 JLINK_GetSN()
+T6100 000:125.416 - 0.044ms returns 20090928
+T6100 000:127.111 JLINK_GetOEMString(...)
+T6100 000:129.581 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T6100 000:130.041 - 0.460ms returns 0x00
+T6100 000:130.087 JLINK_HasError()
+T6100 000:130.121 JLINK_SetSpeed(5000)
+T6100 000:130.197 - 0.077ms 
+T6100 000:130.222 JLINK_GetId()
+T6100 000:131.715   ConfigTargetSettings() start
+T6100 000:131.767    J-Link Script File: Executing ConfigTargetSettings()
+T6100 000:133.598   ConfigTargetSettings() end - Took 42us
+T6100 000:134.850   InitTarget() start
+T6100 000:134.900    J-Link Script File: Executing InitTarget()
+T6100 000:136.892   SWD selected. Executing JTAG -> SWD switching sequence.
+T6100 000:142.326   DAP initialized successfully.
+T6100 000:162.451   InitTarget() end - Took 25.9ms
+T6100 000:165.497   Found SW-DP with ID 0x6BA02477
+T6100 000:170.328   Old FW that does not support reading DPIDR via DAP jobs
+T6100 000:177.281   DPv0 detected
+T6100 000:179.643   CoreSight SoC-400 or earlier
+T6100 000:181.065   Scanning AP map to find all available APs
+T6100 000:186.423   AP[3]: Stopped AP scan as end of AP map has been reached
+T6100 000:187.858   AP[0]: AHB-AP (IDR: 0x84770001, ADDR: 0x00000000)
+T6100 000:189.205   AP[1]: AHB-AP (IDR: 0x84770001, ADDR: 0x01000000)
+T6100 000:190.509   AP[2]: APB-AP (IDR: 0x54770002, ADDR: 0x02000000)
+T6100 000:191.879   Iterating through AP map to find AHB-AP to use
+T6100 000:196.717   AP[0]: Core found
+T6100 000:198.329   AP[0]: AHB-AP ROM base: 0xE00FE000
+T6100 000:201.333   CPUID register: 0x411FC272. Implementer code: 0x41 (ARM)
+T6100 000:204.299   Cache: L1 I/D-cache present
+T6100 000:205.945   Found Cortex-M7 r1p2, Little endian.
+T6100 000:206.348   -- Max. mem block: 0x00002C18
+T6100 000:207.008   Looking for J-Link GUI Server exe at: F:\Keil\ARM\Segger\JLinkGUIServer.exe
+T6100 000:207.185   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V924a\JLinkGUIServer.exe
+T6100 000:207.315   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V924a\JLinkGUIServer.exe
+T6100 000:213.083   J-Link GUI Server info: "J-Link GUI server V9.24a "
+T6100 012:812.708   
+  ***** Error: 
+T6100 012:812.766   Specific core setup failed.
+T6100 012:812.795 - 12682.573ms returns 0x00000000
+T6100 014:721.019 JLINK_Close()
+T6100 014:727.342   OnDisconnectTarget() start
+T6100 014:727.403    J-Link Script File: Executing OnDisconnectTarget()
+T6100 014:727.456   CPU_WriteMem(4 bytes @ 0x5C001004)
+T6100 014:728.021   CPU_WriteMem(4 bytes @ 0x5C001034)
+T6100 014:728.611   CPU_WriteMem(4 bytes @ 0x5C001054)
+T6100 014:730.430   OnDisconnectTarget() end - Took 1.74ms
+T6100 014:730.483   CPU_ReadMem(4 bytes @ 0xE0001000)
+T6100 014:730.952   CPU_WriteMem(4 bytes @ 0xE0001000)
+T6100 014:742.949 - 21.930ms
+T6100 014:743.006   
+T6100 014:743.029   Closed

@@ -1,0 +1,297 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "CMakeFiles/Group_control.dir/./E_/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/control/control.o"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"target_compile_options",
+			"target_link_libraries",
+			"target_compile_definitions",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"groups.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 120,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 190,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 204,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 207,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 197,
+				"parent" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 193,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "--target=arm-arm-none-eabi -mcpu=Cortex-M4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -fansi-escape-codes -fcolor-diagnostics"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--target=arm-arm-none-eabi"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=Cortex-M4"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfpu=fpv4-sp-d16"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--target=arm-arm-none-eabi"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-c"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-std=c99"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fno-rtti"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-funsigned-char"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fshort-enums"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-fshort-wchar"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-packed"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-missing-variable-declarations"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-missing-prototypes"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-missing-noreturn"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-sign-conversion"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-nonportable-include-path"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-reserved-id-macro"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-unused-macros"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-documentation-unknown-command"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-documentation"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-license-management"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wno-parentheses-equality"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-O1"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "STM32G474xx"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "USE_HAL_DRIVER"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "_RTE_"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "__MICROLIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Core/Inc"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Drivers/STM32G4xx_HAL_Driver/Inc"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Drivers/CMSIS/Device/ST/STM32G4xx/Include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Drivers/CMSIS/Include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/tmp/Volleyball2_chassis+Volleyball2_chassis"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/RTE/_Volleyball2_chassis"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "C:/Users/Lenovo/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Motor_control"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../chassis_task"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../BSP"
+				},
+				{
+					"backtrace" : 7,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../control"
+				},
+				{
+					"isSystem" : true,
+					"path" : "C:/Users/Lenovo/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"id" : "Group_control::@6890427a1f51a3e7e1df",
+	"name" : "Group_control",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/control/control.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

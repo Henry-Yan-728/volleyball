@@ -1,0 +1,54 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "ARMClang",
+				"implicit" : {},
+				"path" : "c:/Users/Lenovo/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang.exe",
+				"target" : "arm-arm-none-eabi",
+				"version" : ""
+			},
+			"language" : "ASM",
+			"sourceFileExtensions" : 
+			[
+				"S",
+				"s",
+				"asm",
+				"msa"
+			]
+		},
+		{
+			"compiler" : 
+			{
+				"id" : "ARMClang",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"C:/Users/Lenovo/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/include"
+					],
+					"linkDirectories" : [],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : []
+				},
+				"path" : "c:/Users/Lenovo/.vcpkg/artifacts/2139c4c6/compilers.arm.armclang/6.24.0/bin/armclang.exe",
+				"target" : "arm-arm-none-eabi",
+				"version" : "6.24.0"
+			},
+			"language" : "C",
+			"sourceFileExtensions" : 
+			[
+				"c",
+				"m"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

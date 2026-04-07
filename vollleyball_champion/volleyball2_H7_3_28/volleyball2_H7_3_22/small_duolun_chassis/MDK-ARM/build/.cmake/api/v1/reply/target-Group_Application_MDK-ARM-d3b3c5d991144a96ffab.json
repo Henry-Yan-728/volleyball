@@ -1,0 +1,182 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "CMakeFiles/Group_Application_MDK-ARM.dir/./1137ea3e5f068ceeab0d9a8f502f8409/volleyball2_H7/small_duolun_chassis/MDK-ARM/startup_stm32g474xx.o"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"include",
+			"target_compile_options",
+			"target_link_libraries",
+			"target_include_directories",
+			"set_source_files_properties"
+		],
+		"files" : 
+		[
+			"groups.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 120,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 32,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"backtrace" : 4,
+					"fragment" : "-mcpu=Cortex-M4"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfpu=fpv4-sp-d16"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "--target=arm-arm-none-eabi"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-c"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-masm=auto"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-O1"
+				},
+				{
+					"fragment" : "-Wa,armasm,--pd,\"__MICROLIB SETA 1\" -Wa,armasm,--pd,\"STM32G474xx SETA 1\" -Wa,armasm,--pd,\"_RTE_ SETA 1\" "
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-masm=auto \"-x assembler\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 6,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/RTE/_Volleyball2_chassis"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "C:/Users/Lenovo/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../Motor_control"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../chassis_task"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../BSP"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/../control"
+				}
+			],
+			"language" : "ASM",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"id" : "Group_Application_MDK-ARM::@6890427a1f51a3e7e1df",
+	"name" : "Group_Application_MDK-ARM",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/startup_stm32g474xx.s",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

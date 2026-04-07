@@ -55,38 +55,7 @@ HAL_StatusTypeDef sendCANControlMotor(uint32_t moduleId, uint32_t motorId, float
   TxData[6] = Tset & 0xFF;
   TxData[7] = (Tset >> 8) & 0xFF;
 
-  HAL_StatusTypeDef status = HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan3, &TxHeader, TxData);
-
-  if (status != HAL_OK) return status;
-
-  // 注意：在RTOS中，不建议使用阻塞死循环等待接收。
-  // 建议将接收放在中断回调中处理。为了保持原逻辑，此处暂时保留，但需谨慎。
-  uint32_t timeout = HAL_GetTick() + 10; // 缩短超时时间防止卡死任务
-  while (HAL_FDCAN_GetRxFifoFillLevel(&hfdcan3, FDCAN_RX_FIFO0) == 0)
-  {
-    if (HAL_GetTick() > timeout) return HAL_TIMEOUT;
-  }
-
-  FDCAN_RxHeaderTypeDef RxHeader;
-  uint8_t RxData[8];
-  status = HAL_FDCAN_GetRxMessage(&hfdcan3, FDCAN_RX_FIFO0, &RxHeader, RxData);
-
-  if (status == HAL_OK)
-  {
-    uint8_t received_motor_id = RxHeader.Identifier >> 8 & 0x0F;
-    if (received_motor_id != motorId) return HAL_ERROR;
-
-    *motor_temperature = RxHeader.Identifier & 0xFF;
-    uint16_t temp_torque = (RxData[6] | (RxData[7] << 8));
-    uint16_t temp_speed = (RxData[4] | (RxData[5] << 8));
-    uint32_t temp_position = (RxData[0] | (RxData[1] << 8) | (RxData[2] << 16) | (RxData[3] << 24));
-
-    *actual_torque = (float)temp_torque / 256.0f;
-    *actual_speed = (float)temp_speed / 256.0f * (2 * PI);
-    *actual_position = (float)temp_position / 32768.0f * (2 * PI);
-  }
-  return status;
-}
+return HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan3, &TxHeader, TxData);}
 
 HAL_StatusTypeDef sendCANSetMotorKK(uint32_t moduleId, uint32_t motorId, float Kpos, float Kspd)
 {
@@ -193,4 +162,24 @@ void get_Unitree_pos(uint32_t motorId)
       actual_position[motorId] = actual_position0;
   }
 	printf("%lf",actual_position[motorId]);
+}
+
+// 此函数需要在 fdcan_bsp.c 的 FDCAN3 回调中调用，或注册到回调表
+void Unitree_Rx_Handler(FDCAN_RxHeaderTypeDef* rx_header, uint8_t rx_data[8])
+{
+    // 宇树 Go1/M8010 的反馈 ID 通常是：MasterID(0~3) + MotorID(0~2) 的组合
+    // 假设反馈 ID 解析逻辑如下（需查阅具体电机手册确认）：
+    uint8_t motor_id = (rx_header->Identifier >> 8) & 0x0F; 
+    
+    if (motor_id < 3) {
+        // 解析数据
+        uint16_t temp_torque = (rx_data[6] | (rx_data[7] << 8));
+        uint16_t temp_speed = (rx_data[4] | (rx_data[5] << 8));
+        uint32_t temp_position = (rx_data[0] | (rx_data[1] << 8) | (rx_data[2] << 16) | (rx_data[3] << 24));
+
+        // 更新全局变量
+        actual_torque[motor_id] = (float)temp_torque / 256.0f;
+        actual_speed[motor_id] = (float)temp_speed / 256.0f * (2 * PI);
+        actual_position[motor_id] = (float)temp_position / 32768.0f * (2 * PI);
+    }
 }

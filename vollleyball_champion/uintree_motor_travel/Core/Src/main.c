@@ -26,7 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "unitree_driver.h"
-#include "unitree_planner.h"
+//#include "unitree_planner.h"
+#include "fdcan_bsp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,18 +102,27 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-	// 1. ¶¨Òå¶ÔÏó
+	  fdcan_bsp_init();     // CANæ€»çº¿åˆå§‹åŒ–
+  fdcan_bsp_start(&hfdcan1); 
+  fdcan_bsp_start(&hfdcan2); 
+  fdcan_bsp_start(&hfdcan3); 
+    
+    // 3. è®¾å®šåŠ¨ä½œ (æ¨¡æ‹Ÿ)
+    // ä»Ž 0åº¦ èµ°åˆ° 90åº¦ï¼Œé€Ÿåº¦ 120åº¦/ç§’
+    // è¾“å‡ºç«¯åˆšåº¦ Kp=60, Kd=1.5 (å†…éƒ¨è‡ªåŠ¨è½¬ä¸ºç”µæœºç«¯ Kp~1.5)
+//    Unitree_SetTrajectory(&joint1, 0.0f, 3600.0f, 5400.0f, 80.0f, 1.5f);
+		uint32_t time[4];
+		uint32_t flag = 1;
+		time[0] = HAL_GetTick();
+		time[1] = time[2] =time[3] = 0;
+//		Unitree_Send_Cmd(1, 0.0f, 0.0f, 4.08f, 1.5f, 0.1f);
+	// 1. å®šä¹‰å¯¹è±¡
     UnitreePlanner_t joint1;
     
-    // 2. ³õÊ¼»¯ (ID = 1)
-    Unitree_Init(&joint1, 3);
-    
-    // 3. Éè¶¨¶¯×÷ (Ä£Äâ)
-    // ´Ó 0¶È ×ßµ½ 90¶È£¬ËÙ¶È 120¶È/Ãë
-    // Êä³ö¶Ë¸Õ¶È Kp=60, Kd=1.5 (ÄÚ²¿×Ô¶¯×ªÎªµç»ú¶Ë Kp~1.5)
-    Unitree_SetTrajectory(&joint1, 0.0f, 90.0f, 120.0f, 60.0f, 1.5f);
-		Unitree_Send_Cmd(1,0.0f,0.0f,90.0f,1.0f,0.1f);
-  /* USER CODE END 2 */
+    // 2. åˆå§‹åŒ– (ID = 1)
+    Unitree_Init(&joint1, 1);
+		Unitree_SetTrajectory(&joint1, 37.0f, 37.0f, 3000.0f, 100.0f, 1.0f);
+	/* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -121,11 +131,25 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//		Unitree_UpdateAndSend(&joint1, 0.001f);
-				Unitree_Send_Cmd(1,0.0f,0.0f,90.0f,1.0f,0.1f);
-		Unitree_Send_Cmd(2,0.0f,0.0f,90.0f,1.0f,0.1f);
-		Unitree_Send_Cmd(3,0.0f,0.0f,90.0f,1.0f,0.1f);
-		HAL_Delay(1000);
+		time[0] = HAL_GetTick();
+		if(time [0] - time[2]>=1)
+		{
+    Unitree_UpdateAndSend(&joint1, 0.001f);
+			time[2] = time[0];
+		}
+		if(time[0]-time[1]>=3000)
+		{
+			if(flag == 1)
+			{
+    Unitree_SetTrajectory(&joint1, 37.0f, 114.0f, 12600.0f, 900.0f, 6.0f);
+				flag=0;
+		}else
+			{
+    Unitree_SetTrajectory(&joint1, 114.0f, 37.0f, 90.0f, 180.0f, 4.0f);
+				flag = 1;
+			}
+						time[1] = time[0];
+	}
   }
   /* USER CODE END 3 */
 }

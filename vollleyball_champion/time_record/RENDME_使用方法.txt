@@ -1,0 +1,68 @@
+如何在你的 STM32 项目中使用它？
+这个模块极为轻量且强大，以下是三大黄金使用场景：
+
+
+场景一：替换 HAL_Delay 实现“非阻塞循环” (裸机多任务神器)
+如果你没有用 FreeRTOS，千万别用 HAL_Delay()（它会把整个 CPU 挂起死等）。用 TimeStamp_CheckTimeout 可以让 CPU 同时干几百件事：
+#include "stm32_timestamp.h"
+
+// 定义几个静态变量来记录各自的时间点
+static uint32_t timer_led = 0;
+static uint32_t timer_uart = 0;
+
+void main_loop(void)
+{
+    while (1)
+    {
+        // 任务1：每 500ms 闪烁一次 LED (非阻塞)
+        if (TimeStamp_CheckTimeout(&timer_led, 500)) {
+            HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+        }
+
+        // 任务2：每 100ms 向上位机发送一次电机速度 (非阻塞)
+        if (TimeStamp_CheckTimeout(&timer_uart, 100)) {
+            Debug_SendVar("MOTOR_SPEED", get_motor_speed());
+        }
+        
+        // 其他任务继续无延迟全速运行...
+        Update_Chassis_PID(); 
+    }
+}
+
+
+场景二：测量一段代码/算法的真实执行耗时
+想知道你的 PID 算法或者逆运动学解算到底花了多长时间？用 Delta 计算：
+#include "stm32_timestamp.h"
+
+void test_algorithm_time(void)
+{
+    uint32_t start = TimeStamp_Get_ms();
+    
+    // 运行你的复杂算法...
+    Matrix_Inverse_Calculation(); 
+    
+    // 计算耗时
+    uint32_t cost_time = TimeStamp_GetDelta_ms(start);
+    
+    // 把耗时发送到电脑多窗口调试助手上
+    Debug_SendVar("CALC_TIME_MS", (float)cost_time); 
+}
+
+
+场景三：生成带时间戳的高级系统日志
+配合我们之前写的 Debug_Log() 函数，你可以让 STM32 发出的每一条日志都带上系统启动以来的精准运行时间：
+#include "stm32_timestamp.h"
+
+// 你可以在之前的 serial_debug.c 中修改 Debug_Log 函数：
+void Debug_Log_With_Time(const char* msg) {
+    char time_str[20];
+    char final_buf[128];
+    
+    // 获取时间戳字符串，例如 "[00:01:23.456]"
+    TimeStamp_GetFormattedStr(time_str, sizeof(time_str));
+    
+    // 拼接到一起: $LOG:[00:01:23.456] STM32 System Started!
+    snprintf(final_buf, sizeof(final_buf), "$LOG:%s %s\r\n", time_str, msg);
+    
+    Debug_Tx(final_buf); // 发送给串口
+}

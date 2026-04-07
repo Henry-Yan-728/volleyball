@@ -1,0 +1,21 @@
+build-idx:
+  generated-by: csolution version 2.13.0+p3-g40b6564e
+  csolution: Volleyball2_chassis.csolution.yml
+  cbuild-run: out/Volleyball2_chassis+Volleyball2_chassis.cbuild-run.yml
+  tmpdir: tmp
+  cprojects:
+    - cproject: Volleyball2_chassis.cproject.yml
+  cbuilds:
+    - cbuild: out/Volleyball2_chassis/Volleyball2_chassis/Volleyball2_chassis+Volleyball2_chassis.cbuild.yml
+      project: Volleyball2_chassis
+      configuration: +Volleyball2_chassis
+      messages:
+        warnings:
+          - file 'E:/2026volleyball/volleyball/vollleyball_champion/volleyball2_H7/small_duolun_chassis/MDK-ARM/.cmsis/Volleyball2_chassis+Volleyball2_chassis.dbgconf' not found; use --update-rte
+        info:
+          - Volleyball2_chassis.cbuild-pack.yml - file is already up-to-date
+          - Volleyball2_chassis+Volleyball2_chassis.cbuild-run.yml - file is already up-to-date
+          - Volleyball2_chassis+Volleyball2_chassis.cbuild.yml - file is already up-to-date
+      packs-unused:
+        - pack: ARM::CMSIS-DSP@1.17.0
+        - pack: ARM::CMSIS-NN@4.1.0

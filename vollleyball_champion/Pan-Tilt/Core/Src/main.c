@@ -27,7 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "fdcan_bsp.h"
 #include "dji_motor.h"
-#include "control.h"
+#include "Pan_Tilt_control.h"
 
 /* USER CODE END Includes */
 
@@ -132,8 +132,8 @@ int main(void)
 		{
 			static int toggle = 0;
           toggle = !toggle;
-			 if(toggle) gimbal_set_angle(0.0f, 30.0f);
-			else gimbal_set_angle(0.0f, -30.0f);
+			 if(toggle) gimbal_set_angle(30.0f, 30.0f);
+			else gimbal_set_angle(-30.0f, -30.0f);
 			time[2] = time[0];
 		}  
   }

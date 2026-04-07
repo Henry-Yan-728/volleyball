@@ -35,7 +35,7 @@
 *.i*86
 *.x86_64
 *.hex
-
+*.zip
 # Debug files
 *.dSYM/
 *.su
@@ -53,3 +53,6 @@ dkms.conf
 
 # debug information files
 *.dwo
+*/MDK-ARM/tmp/
+*/MDK-ARM/Objects/
+*/MDK-ARM/Listings/

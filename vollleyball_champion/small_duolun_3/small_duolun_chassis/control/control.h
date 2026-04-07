@@ -7,7 +7,7 @@
 
 // 1. 舵向参数
 // DJI 2006电机减速比为 36:1 (36圈电机轴 = 1圈输出轴)
-#define STEERING_GEAR_RATIO  36.0f 
+#define STEERING_GEAR_RATIO  108.0f 
 
 // 2. 动力参数 (VESC)
 #define WHEEL_RADIUS         0.05f   // 轮子半径 (单位: 米) (例如直径10cm的轮子，半径0.05)

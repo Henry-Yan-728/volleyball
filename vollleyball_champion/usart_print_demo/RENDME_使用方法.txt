@@ -1,0 +1,18 @@
+如何在你的项目中使用它？
+非常简单！只需要 3 步：
+
+在你的 main.c 初始化的地方，注册你的串口（假设你用 USART1 连电脑）：
+#include "serial_debug.h"
+int main(void) {
+    // ... 其他硬件初始化 ...
+    Debug_Init(&huart1); 
+    Debug_Log("STM32 System Started!"); // 上位机会在 LOG 窗口显示这句话
+    // ...
+}
+
+在你的任务或循环中，随时发送你想查看的变量：
+// 比如在你的底盘控制循环里
+Debug_SendVar("CHASSIS_SPEED", target_vx);
+// 比如在你的云台控制循环里
+Debug_SendVar("YAW_ANGLE", current_yaw_deg);
+Debug_SendVar("PITCH_SPEED", PITCH_SPEED);

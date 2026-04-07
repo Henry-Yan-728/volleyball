@@ -1,0 +1,35 @@
+1.串口中断回调函数中调用
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  // 调用我们在模块里写的接收处理函数
+  TJC_UART_RxCpltCallback(huart);
+}
+2.文件中的初始化调用，初始化串口的接收句柄
+// 初始化 TJC 模块，传入串口句柄（如 &huart1）
+  TJC_Init(&huart1);
+3.通过相应的标志位进行调用
+// 1. 执行解析函数（必须不断调用）
+    TJC_Parse_Process();
+
+    // 2. 使用解析出来的结果
+    if (TJC_Status.cmd_start) {
+        // 执行开始逻辑...
+        printf("System Started!\r\n");
+        TJC_Status.cmd_start = 0; // 清除标志，防止重复执行
+    }
+
+    if (TJC_Status.cmd_end) {
+        // 执行停止逻辑...
+        printf("System Ended!\r\n");
+        TJC_Status.cmd_end = 0;
+    }
+
+    if (TJC_Status.coords_updated) {
+        // 获取到了新的 X, Y 坐标
+        printf("New Coords -> X: %.2f, Y: %.2f\r\n", TJC_Status.target_x, TJC_Status.target_y);
+        
+        // 在这里写你的电机控制代码或者其他逻辑...
+        
+        TJC_Status.coords_updated = 0; // 清除标志
+    }
+4.最终的坐标会被传入到结构体TJC_Status中的target_x和target_y中，可以根据实际情况进行调用

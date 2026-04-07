@@ -1,0 +1,106 @@
+T7CC8 000:005.744   SEGGER J-Link V7.82 Log File
+T7CC8 000:005.863   DLL Compiled: Oct 13 2022 13:32:51
+T7CC8 000:005.885   Logging started @ 2026-03-08 11:49
+T7CC8 000:005.905 - 5.915ms
+T7CC8 000:005.931 JLINK_SetWarnOutHandler(...)
+T7CC8 000:005.953 - 0.032ms
+T7CC8 000:005.975 JLINK_OpenEx(...)
+T7CC8 000:007.836   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T7CC8 000:008.183   Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+T7CC8 000:010.106   Hardware: V7.00
+T7CC8 000:010.160   S/N: 20090928
+T7CC8 000:018.882   OEM: SEGGER
+T7CC8 000:018.915   Feature(s): JFlash, RDI, GDB, FlashDL, FlashBP
+T7CC8 000:019.686   TELNET listener socket opened on port 19021
+T7CC8 000:019.795   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T7CC8 000:020.029   WEBSRV Webserver running on local port 19080
+T7CC8 000:028.058 - 22.121ms returns "O.K."
+T7CC8 000:028.136 JLINK_GetEmuCaps()
+T7CC8 000:028.158 - 0.033ms returns 0x88EA5833
+T7CC8 000:028.183 JLINK_TIF_GetAvailable(...)
+T7CC8 000:028.355 - 0.195ms
+T7CC8 000:028.396 JLINK_SetErrorOutHandler(...)
+T7CC8 000:028.417 - 0.033ms
+T7CC8 000:028.464 JLINK_ExecCommand("ProjectFile = "E:\2026volleyball\volleyball\vollleyball_champion\volleyball2_H7\volleyball2_H7\MDK-ARM\JLinkSettings.ini"", ...). 
+T7CC8 000:037.509 - 9.062ms returns 0x00
+T7CC8 000:041.265 JLINK_ExecCommand("Device = STM32H723VGHx", ...). 
+T7CC8 000:041.791   Flash bank @ 0x90000000: SFL: Parsing sectorization info from ELF file
+T7CC8 000:041.832     FlashDevice.SectorInfo[0]: .SectorSize = 0x00010000, .SectorStartAddr = 0x00000000
+T7CC8 000:041.866   OFL: Init() N/A
+T7CC8 000:041.898   OFL: UnInit() N/A
+T7CC8 000:041.929   OFL: EraseSector() N/A
+T7CC8 000:041.959   OFL: ProgramPage() N/A
+T7CC8 000:041.988   OFL: EraseChip() N/A
+T7CC8 000:042.018   OFL: BlankCheck() N/A
+T7CC8 000:042.048   OFL: Verify() N/A
+T7CC8 000:042.078   OFL: SEGGER_FL_Erase() present @ offset 0x000004E1
+T7CC8 000:042.107   OFL: SEGGER_FL_Program() present @ offset 0x000004BD
+T7CC8 000:042.137   OFL: SEGGER_FL_Read() N/A
+T7CC8 000:042.167   OFL: SEGGER_OPEN_Read() N/A
+T7CC8 000:042.200   OFL: SEGGER_FL_CalcCRC() present @ offset 0x00000511
+T7CC8 000:042.230   OFL: SEGGER_FL_Start() present @ offset 0x00000529
+T7CC8 000:042.259   OFL: SEGGER_FL_GetFlashInfo() present @ offset 0x00000215
+T7CC8 000:042.289   OFL: SEGGER_FL_Verify() N/A
+T7CC8 000:042.319   OFL: SEGGER_FL_CheckBlank() present @ offset 0x000004FD
+T7CC8 000:042.349   OFL: SEGGER_FL_Prepare() present @ offset 0x00000335
+T7CC8 000:042.382   OFL: SEGGER_FL_Restore() present @ offset 0x00000459
+T7CC8 000:042.411   OFL: SEGGER_FL_EraseChip() N/A
+T7CC8 000:046.574   Device "STM32H723VG" selected.
+T7CC8 000:047.154 - 5.852ms returns 0x00
+T7CC8 000:047.185 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T7CC8 000:047.208 - 0.014ms returns 0x01
+T7CC8 000:047.233 JLINK_GetHardwareVersion()
+T7CC8 000:047.252 - 0.028ms returns 70000
+T7CC8 000:047.274 JLINK_GetDLLVersion()
+T7CC8 000:047.293 - 0.027ms returns 78200
+T7CC8 000:047.312 JLINK_GetOEMString(...)
+T7CC8 000:047.331 JLINK_GetFirmwareString(...)
+T7CC8 000:047.349 - 0.027ms
+T7CC8 000:052.463 JLINK_GetDLLVersion()
+T7CC8 000:052.514 - 0.062ms returns 78200
+T7CC8 000:052.538 JLINK_GetCompileDateTime()
+T7CC8 000:052.558 - 0.031ms
+T7CC8 000:055.436 JLINK_GetFirmwareString(...)
+T7CC8 000:055.482 - 0.057ms
+T7CC8 000:056.971 JLINK_GetHardwareVersion()
+T7CC8 000:057.010 - 0.049ms returns 70000
+T7CC8 000:058.428 JLINK_GetSN()
+T7CC8 000:058.468 - 0.051ms returns 20090928
+T7CC8 000:059.906 JLINK_GetOEMString(...)
+T7CC8 000:062.813 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T7CC8 000:063.345 - 0.547ms returns 0x00
+T7CC8 000:063.374 JLINK_HasError()
+T7CC8 000:063.407 JLINK_SetSpeed(5000)
+T7CC8 000:063.550 - 0.153ms
+T7CC8 000:063.574 JLINK_GetId()
+T7CC8 000:065.240   ConfigTargetSettings() start
+T7CC8 000:065.288    J-Link Script File: Executing ConfigTargetSettings()
+T7CC8 000:066.958   ConfigTargetSettings() end
+T7CC8 000:070.526   Found SW-DP with ID 0x6BA02477
+T7CC8 000:084.304   Found SW-DP with ID 0x6BA02477
+T7CC8 000:087.473   Old FW that does not support reading DPIDR via DAP jobs
+T7CC8 000:092.482   DPv0 detected
+T7CC8 000:094.227   CoreSight SoC-400 or earlier
+T7CC8 000:095.987   Scanning AP map to find all available APs
+T7CC8 000:102.151   AP[3]: Stopped AP scan as end of AP map has been reached
+T7CC8 000:103.778   AP[0]: AHB-AP (IDR: 0x84770001)
+T7CC8 000:105.550   AP[1]: AHB-AP (IDR: 0x84770001)
+T7CC8 000:107.946   AP[2]: APB-AP (IDR: 0x54770002)
+T7CC8 000:109.593   Iterating through AP map to find AHB-AP to use
+T7CC8 000:114.486   AP[0]: Core found
+T7CC8 000:116.145   AP[0]: AHB-AP ROM base: 0xE00FE000
+T7CC8 000:119.343   CPUID register: 0x411FC272. Implementer code: 0x41 (ARM)
+T7CC8 000:120.910   Found Cortex-M7 r1p2, Little endian.
+T7CC8 000:121.428   -- Max. mem block: 0x00002C18
+T7CC8 000:122.133   Looking for J-Link GUI Server exe at: F:\Keil\ARM\Segger\JLinkGUIServer.exe
+T7CC8 000:122.469   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V870\JLinkGUIServer.exe
+T7CC8 000:122.603   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V870\JLinkGUIServer.exe
+T7CC8 000:130.669   J-Link GUI Server info: "J-Link GUI server V8.70 "
+T7CC8 001:497.064   
+  ***** Error: 
+T7CC8 001:497.162   Specific core setup failed.
+T7CC8 001:497.216 - 1433.659ms returns 0x00000000
+T7CC8 002:501.949 JLINK_Close()
+T7CC8 002:517.101 - 15.193ms
+T7CC8 002:517.155   
+T7CC8 002:517.177   Closed

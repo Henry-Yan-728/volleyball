@@ -1,0 +1,8 @@
+exitonerror 1
+ClrRESET
+Sleep 200
+Connect
+SetRESET
+Sleep 200
+Halt
+qc

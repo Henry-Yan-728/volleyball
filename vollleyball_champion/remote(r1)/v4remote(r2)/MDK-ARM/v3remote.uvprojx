@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\TJC_usart_demo</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -895,6 +895,21 @@
               <FileName>system_stm32f1xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/system_stm32f1xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>TJCusart</GroupName>
+          <Files>
+            <File>
+              <FileName>tjc_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\TJC_usart_demo\tjc_handle.c</FilePath>
+            </File>
+            <File>
+              <FileName>tjc_handle.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\TJC_usart_demo\tjc_handle.h</FilePath>
             </File>
           </Files>
         </Group>

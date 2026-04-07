@@ -41,7 +41,7 @@ void dji_motors_init(void)
 {
     // === 1. 配置 Yaw 轴 (GM6020) ===
     // 假设：使用 FDCAN1，电机物理ID设为5 (Rx: 0x205)，对应控制帧 0x1FF
-    dji_motor_configure(GIMBAL_MOTOR_YAW_ID, CAN_ID_M5, &hfdcan1, 
+    dji_motor_configure(GIMBAL_MOTOR_YAW_ID, CAN_ID_M5, &hfdcan2, 
                         // 位置环 (6020直驱需要较大的P，较小的I防止震荡)
                         0.5f,  0.0f, 0.8f,     
                         // 速度环 (力矩响应)
@@ -50,7 +50,7 @@ void dji_motors_init(void)
 
     // === 2. 配置 Pitch 轴 (M2006) ===
     // 假设：使用 FDCAN1，电机物理ID设为1 (Rx: 0x202)，对应控制帧 0x200
-    dji_motor_configure(GIMBAL_MOTOR_PITCH_ID, CAN_ID_M2, &hfdcan1, 
+    dji_motor_configure(GIMBAL_MOTOR_PITCH_ID, CAN_ID_M6, &hfdcan2, 
                         // 位置环 (2006减速电机，位置环P可以小一点，依靠速度环)
                         0.15f, 0.0f, 0.8f,     // 位置环 PID
                         10.0f, 0.1f, 0.0f,     // 速度环 PID
