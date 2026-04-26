@@ -67,6 +67,13 @@ extern UART_HandleTypeDef huart10;
 #define MANUAL_ATTITUDE_TARGET_YAW_RAD 0.0f
 #define MANUAL_ATTITUDE_POSE_TIMEOUT_MS 1000U
 #define MANUAL_ATTITUDE_MOVE_DEADBAND 1.0f
+#define PLANNER_TUNING_MAX_SPEED       10000.0f
+#define PLANNER_TUNING_MAX_DIST        30000.0f
+#define PLANNER_TUNING_MAX_POS_TOL     5000.0f
+#define PLANNER_TUNING_MAX_ANGLE_KP    20.0f
+#define PLANNER_TUNING_MAX_VR          20.0f
+#define PLANNER_TUNING_MAX_VR_SLEW     10.0f
+#define PLANNER_TUNING_MAX_SCALE       10.0f
 static uint8_t s_cybergear_boot_ok = 0U;
 static uint8_t s_cybergear_chassis_ready = 0U;
 static float s_manual_attitude_last_vr = 0.0f;
@@ -116,6 +123,8 @@ static const PlannerConfig_t s_default_planner_cfg = {
 float PITCH = 5.86f;                // Pitch閿熺粨缂撻敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹?閿熸枻鎷烽敓鍔鎷?
 volatile uint32_t g_can3_tx_drop_task03 = 0U;
 volatile uint32_t g_can3_tx_drop_task07 = 0U;
+volatile uint32_t g_planner_tuning_reject_count = 0U;
+volatile uint32_t g_planner_tuning_clamp_count = 0U;
 
 // --- FreeRTOS 閿熻妭鏍歌鎷烽敓鏂ゆ嫹閿熸枻鎷?---
 osMutexId_t rc_mutexHandle;            // 閿熸枻鎷烽敓鏂ゆ嫹鍏ㄩ敓鏂ゆ嫹閬ラ敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷?g_remote_data 閿熶茎浼欐嫹閿熸枻鎷烽敓鏂ゆ嫹
@@ -195,6 +204,7 @@ static void freertos_require_handle(const void *handle, const char *name);
 static void planner_tuning_send_value(uint8_t cmd_type, uint8_t param_id, float value);
 static uint8_t planner_tuning_try_read_value(uint8_t param_id, float *value_out);
 static uint8_t planner_tuning_try_write_value(uint8_t param_id, float value);
+static uint8_t planner_tuning_clamp_value(uint8_t param_id, float value, float *value_out);
 static void planner_tuning_process_frame(const PlannerTuningFrame_t *frame);
 static float manual_attitude_clampf(float value, float min_value, float max_value);
 static float manual_attitude_normalize_angle(float angle_rad);
@@ -396,28 +406,112 @@ static uint8_t planner_tuning_try_read_value(uint8_t param_id, float *value_out)
   return 1U;
 }
 
+static uint8_t planner_tuning_clamp_value(uint8_t param_id, float value, float *value_out)
+{
+  float min_value = 0.0f;
+  float max_value = 0.0f;
+
+  if ((value_out == NULL) || (isfinite(value) == 0)) {
+    g_planner_tuning_reject_count++;
+    return 0U;
+  }
+
+  switch (param_id) {
+    case PID_MAX_SPD:
+    case PID_START_SPD:
+    case PID_STOP_SPD:
+      min_value = 0.0f;
+      max_value = PLANNER_TUNING_MAX_SPEED;
+      break;
+
+    case PID_UP_DIST:
+    case PID_DOWN_DIST:
+    case PID_FAR_NEAR_DIST:
+      min_value = 1.0f;
+      max_value = PLANNER_TUNING_MAX_DIST;
+      break;
+
+    case PID_ANGLE_KP:
+      min_value = 0.0f;
+      max_value = PLANNER_TUNING_MAX_ANGLE_KP;
+      break;
+
+    case PID_MAX_VR:
+      min_value = 0.0f;
+      max_value = PLANNER_TUNING_MAX_VR;
+      break;
+
+    case PID_VR_SLEW_STEP:
+      min_value = 0.0f;
+      max_value = PLANNER_TUNING_MAX_VR_SLEW;
+      break;
+
+    case PID_YAW_DEADZONE:
+    case PID_YAW_TOLERANCE:
+      min_value = 0.0f;
+      max_value = (float)M_PI;
+      break;
+
+    case PID_FAR_WEIGHT_MIN:
+      min_value = 0.0f;
+      max_value = 1.0f;
+      break;
+
+    case PID_FAR_MAX_VR_SCALE:
+    case PID_FAR_VR_SLEW_SCALE:
+      min_value = 0.1f;
+      max_value = PLANNER_TUNING_MAX_SCALE;
+      break;
+
+    case PID_POS_TOLERANCE:
+      min_value = 1.0f;
+      max_value = PLANNER_TUNING_MAX_POS_TOL;
+      break;
+
+    default:
+      g_planner_tuning_reject_count++;
+      return 0U;
+  }
+
+  if (value < min_value) {
+    value = min_value;
+    g_planner_tuning_clamp_count++;
+  } else if (value > max_value) {
+    value = max_value;
+    g_planner_tuning_clamp_count++;
+  }
+
+  *value_out = value;
+  return 1U;
+}
+
 static uint8_t planner_tuning_try_write_value(uint8_t param_id, float value)
 {
   PlannerConfig_t cfg;
+  float safe_value;
+
+  if (planner_tuning_clamp_value(param_id, value, &safe_value) == 0U) {
+    return 0U;
+  }
 
   Planner_GetConfig(&cfg);
 
   switch (param_id) {
-    case PID_MAX_SPD:            cfg.max_spd = value; break;
-    case PID_START_SPD:          cfg.start_spd = value; break;
-    case PID_STOP_SPD:           cfg.stop_spd = value; break;
-    case PID_UP_DIST:            cfg.up_dist = value; break;
-    case PID_DOWN_DIST:          cfg.down_dist = value; break;
-    case PID_ANGLE_KP:           cfg.angle_kp = value; break;
-    case PID_MAX_VR:             cfg.max_vr = value; break;
-    case PID_VR_SLEW_STEP:       cfg.vr_slew_step = value; break;
-    case PID_YAW_DEADZONE:       cfg.yaw_deadzone = value; break;
-    case PID_FAR_NEAR_DIST:      cfg.far_near_dist = value; break;
-    case PID_FAR_WEIGHT_MIN:     cfg.far_weight_min = value; break;
-    case PID_FAR_MAX_VR_SCALE:   cfg.far_max_vr_scale = value; break;
-    case PID_FAR_VR_SLEW_SCALE:  cfg.far_vr_slew_scale = value; break;
-    case PID_POS_TOLERANCE:      cfg.pos_tolerance = value; break;
-    case PID_YAW_TOLERANCE:      cfg.yaw_tolerance = value; break;
+    case PID_MAX_SPD:            cfg.max_spd = safe_value; break;
+    case PID_START_SPD:          cfg.start_spd = safe_value; break;
+    case PID_STOP_SPD:           cfg.stop_spd = safe_value; break;
+    case PID_UP_DIST:            cfg.up_dist = safe_value; break;
+    case PID_DOWN_DIST:          cfg.down_dist = safe_value; break;
+    case PID_ANGLE_KP:           cfg.angle_kp = safe_value; break;
+    case PID_MAX_VR:             cfg.max_vr = safe_value; break;
+    case PID_VR_SLEW_STEP:       cfg.vr_slew_step = safe_value; break;
+    case PID_YAW_DEADZONE:       cfg.yaw_deadzone = safe_value; break;
+    case PID_FAR_NEAR_DIST:      cfg.far_near_dist = safe_value; break;
+    case PID_FAR_WEIGHT_MIN:     cfg.far_weight_min = safe_value; break;
+    case PID_FAR_MAX_VR_SCALE:   cfg.far_max_vr_scale = safe_value; break;
+    case PID_FAR_VR_SLEW_SCALE:  cfg.far_vr_slew_scale = safe_value; break;
+    case PID_POS_TOLERANCE:      cfg.pos_tolerance = safe_value; break;
+    case PID_YAW_TOLERANCE:      cfg.yaw_tolerance = safe_value; break;
     default:
       return 0U;
   }

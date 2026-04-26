@@ -40,7 +40,7 @@ volatile uint32_t g_fdcan_bus_off_count = 0U;
 volatile uint32_t g_fdcan_bus_off_recover_count = 0U;
 volatile uint32_t g_fdcan_bus_off_recover_fail_count = 0U;
 
-static void fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_location);
+static uint8_t fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_location);
 static uint8_t fdcan_get_bus_index(FDCAN_HandleTypeDef* hfdcan, uint8_t* bus_index);
 static HAL_StatusTypeDef fdcan_activate_notifications(FDCAN_HandleTypeDef* hfdcan);
 
@@ -133,6 +133,12 @@ void fdcan_bsp_start(FDCAN_HandleTypeDef* hfdcan)
 {
     FDCAN_FilterTypeDef sFilterConfig = {0};
 
+    if (hfdcan == NULL)
+    {
+        Error_Handler();
+        return;
+    }
+
     if (hfdcan->Instance == FDCAN2)
     {
         sFilterConfig.IdType = FDCAN_STANDARD_ID;
@@ -157,24 +163,32 @@ void fdcan_bsp_start(FDCAN_HandleTypeDef* hfdcan)
             Error_Handler();
         }
 
-        if (HAL_FDCAN_ConfigGlobalFilter(
-                hfdcan,
-                FDCAN_REJECT,
-                FDCAN_REJECT,
-                FDCAN_REJECT_REMOTE,
-                FDCAN_REJECT_REMOTE) != HAL_OK)
+    }
+    else if (hfdcan->Instance == FDCAN3)
+    {
+        sFilterConfig.IdType = FDCAN_STANDARD_ID;
+        sFilterConfig.FilterType = FDCAN_FILTER_DUAL;
+        sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+
+        sFilterConfig.FilterIndex = 0U;
+        sFilterConfig.FilterID1 = CAN_ID_POSE_PART1;
+        sFilterConfig.FilterID2 = CAN_ID_POSE_PART2;
+        if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
         {
             Error_Handler();
         }
-    }
-    else
-    {
-        sFilterConfig.IdType = FDCAN_STANDARD_ID;
-        sFilterConfig.FilterIndex = 0U;
-        sFilterConfig.FilterType = FDCAN_FILTER_MASK;
-        sFilterConfig.FilterID1 = 0x00000000U;
-        sFilterConfig.FilterID2 = 0x00000000U;
-        sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+
+        sFilterConfig.FilterIndex = 1U;
+        sFilterConfig.FilterID1 = CAN_ID_POSE_PART3;
+        sFilterConfig.FilterID2 = CAN_ID_PC_SET_TARGET;
+        if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
+        {
+            Error_Handler();
+        }
+
+        sFilterConfig.FilterIndex = 2U;
+        sFilterConfig.FilterID1 = CAN_ID_PC_PAN_TILT;
+        sFilterConfig.FilterID2 = 0x7FFU;
         if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
         {
             Error_Handler();
@@ -182,20 +196,64 @@ void fdcan_bsp_start(FDCAN_HandleTypeDef* hfdcan)
 
         sFilterConfig.IdType = FDCAN_EXTENDED_ID;
         sFilterConfig.FilterIndex = 0U;
+        sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+        sFilterConfig.FilterConfig = FDCAN_FILTER_DISABLE;
+        sFilterConfig.FilterID1 = 0U;
+        sFilterConfig.FilterID2 = 0U;
+        if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
+        {
+            Error_Handler();
+        }
+    }
+    else if (hfdcan->Instance == FDCAN1)
+    {
+        sFilterConfig.IdType = FDCAN_STANDARD_ID;
+        sFilterConfig.FilterIndex = 0U;
+        sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+        sFilterConfig.FilterConfig = FDCAN_FILTER_DISABLE;
+        sFilterConfig.FilterID1 = 0U;
+        sFilterConfig.FilterID2 = 0U;
         if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
         {
             Error_Handler();
         }
 
-        if (HAL_FDCAN_ConfigGlobalFilter(
-                hfdcan,
-                FDCAN_ACCEPT_IN_RX_FIFO0,
-                FDCAN_ACCEPT_IN_RX_FIFO0,
-                FDCAN_FILTER_REMOTE,
-                FDCAN_FILTER_REMOTE) != HAL_OK)
+        sFilterConfig.IdType = FDCAN_EXTENDED_ID;
+        sFilterConfig.FilterIndex = 0U;
+        sFilterConfig.FilterType = FDCAN_FILTER_MASK;
+        sFilterConfig.FilterConfig = FDCAN_FILTER_DISABLE;
+        sFilterConfig.FilterID1 = 0U;
+        sFilterConfig.FilterID2 = 0U;
+
+        for (uint8_t i = 0U; i < ext_dispatch_count; i++)
+        {
+            if (ext_dispatch_bus[i] == hfdcan)
+            {
+                sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
+                sFilterConfig.FilterID1 = ext_dispatch_table[i].id;
+                sFilterConfig.FilterID2 = ext_dispatch_table[i].mask;
+                break;
+            }
+        }
+
+        if (HAL_FDCAN_ConfigFilter(hfdcan, &sFilterConfig) != HAL_OK)
         {
             Error_Handler();
         }
+    }
+    else
+    {
+        Error_Handler();
+    }
+
+    if (HAL_FDCAN_ConfigGlobalFilter(
+            hfdcan,
+            FDCAN_REJECT,
+            FDCAN_REJECT,
+            FDCAN_REJECT_REMOTE,
+            FDCAN_REJECT_REMOTE) != HAL_OK)
+    {
+        Error_Handler();
     }
 
     if (fdcan_activate_notifications(hfdcan) != HAL_OK)
@@ -306,7 +364,13 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
             g_fdcan1_rx_fifo0_irq_count++;
         }
 
-        fdcan_dispatch_router(hfdcan, FDCAN_RX_FIFO0);
+        while (HAL_FDCAN_GetRxFifoFillLevel(hfdcan, FDCAN_RX_FIFO0) > 0U)
+        {
+            if (fdcan_dispatch_router(hfdcan, FDCAN_RX_FIFO0) == 0U)
+            {
+                break;
+            }
+        }
     }
 }
 
@@ -314,18 +378,24 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
 {
     if ((RxFifo1ITs & FDCAN_IT_RX_FIFO1_NEW_MESSAGE) != RESET)
     {
-        fdcan_dispatch_router(hfdcan, FDCAN_RX_FIFO1);
+        while (HAL_FDCAN_GetRxFifoFillLevel(hfdcan, FDCAN_RX_FIFO1) > 0U)
+        {
+            if (fdcan_dispatch_router(hfdcan, FDCAN_RX_FIFO1) == 0U)
+            {
+                break;
+            }
+        }
     }
 }
 
-static void fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_location)
+static uint8_t fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_location)
 {
     FDCAN_RxHeaderTypeDef rx_header;
     uint8_t rx_data[64];
 
     if (HAL_FDCAN_GetRxMessage(hfdcan, fifo_location, &rx_header, rx_data) != HAL_OK)
     {
-        return;
+        return 0U;
     }
 
     if (rx_header.IdType == FDCAN_STANDARD_ID)
@@ -342,7 +412,7 @@ static void fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_loc
             }
         }
 
-        return;
+        return 1U;
     }
 
     if (rx_header.IdType == FDCAN_EXTENDED_ID)
@@ -367,6 +437,8 @@ static void fdcan_dispatch_router(FDCAN_HandleTypeDef* hfdcan, uint32_t fifo_loc
             }
         }
     }
+
+    return 1U;
 }
 
 static uint8_t fdcan_get_bus_index(FDCAN_HandleTypeDef* hfdcan, uint8_t* bus_index)

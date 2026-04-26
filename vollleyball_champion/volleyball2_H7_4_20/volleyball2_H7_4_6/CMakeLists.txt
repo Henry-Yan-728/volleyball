@@ -1,0 +1,135 @@
+cmake_minimum_required(VERSION 3.22)
+
+#
+# This file is generated only once,
+# and is not re-generated if converter is called multiple times.
+#
+# User is free to modify the file as much as necessary
+#
+
+# Setup compiler settings
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS ON)
+
+
+# Define the build type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
+# Enable compile command to ease indexing with e.g. clangd
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
+# Core project settings
+project(volleyball2_H7 LANGUAGES C ASM)
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
+find_program(
+    _default_openocd_executable
+    NAMES openocd openocd.exe
+    HINTS
+        "$ENV{OPENOCD_BIN_DIR}"
+        "$ENV{OPENOCD_ROOT}/bin"
+)
+
+find_path(
+    _default_openocd_scripts_dir
+    NAMES target/stm32h7x.cfg
+    HINTS
+        "$ENV{OPENOCD_SCRIPTS_DIR}"
+        "$ENV{OPENOCD_ROOT}/share/openocd/scripts"
+)
+
+set(
+    OPENOCD_EXECUTABLE
+    "${_default_openocd_executable}"
+    CACHE FILEPATH
+    "Path to the OpenOCD executable"
+)
+
+set(
+    OPENOCD_SCRIPTS_DIR
+    "${_default_openocd_scripts_dir}"
+    CACHE PATH
+    "Path to the OpenOCD scripts directory"
+)
+
+set(
+    OPENOCD_FLASH_CONFIG
+    "${CMAKE_SOURCE_DIR}/stm32h7x_daplink.cfg"
+    CACHE FILEPATH
+    "OpenOCD configuration used for flashing"
+)
+
+# Create an executable object type
+add_executable(${CMAKE_PROJECT_NAME})
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES SUFFIX ".elf")
+
+# Add STM32CubeMX generated sources
+add_subdirectory(cmake/stm32cubemx)
+
+# Link directories setup
+target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    # Add user defined library search paths
+)
+
+# Add sources to executable
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    # Add user sources here
+)
+
+# Add include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    # Add user defined include paths
+)
+
+# Add project symbols (macros)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+    # Add user defined symbols
+)
+
+# Remove wrong libob.a library dependency when using cpp files
+list(REMOVE_ITEM CMAKE_C_IMPLICIT_LINK_LIBRARIES ob)
+
+# Add linked libraries
+target_link_libraries(${CMAKE_PROJECT_NAME}
+    stm32cubemx
+    m
+
+    # Add user defined libraries
+)
+
+if(CMAKE_OBJCOPY AND CMAKE_SIZE)
+    add_custom_command(
+        TARGET ${CMAKE_PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+        COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex
+        COMMAND ${CMAKE_SIZE} --format=berkeley $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+        BYPRODUCTS
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex
+        COMMENT "Generating firmware binary, hex and size report"
+    )
+endif()
+
+if(OPENOCD_EXECUTABLE AND OPENOCD_SCRIPTS_DIR AND OPENOCD_FLASH_CONFIG)
+    add_custom_target(
+        flash
+        COMMAND ${OPENOCD_EXECUTABLE}
+            -s ${OPENOCD_SCRIPTS_DIR}
+            -f ${OPENOCD_FLASH_CONFIG}
+            -c "program $<TARGET_FILE:${CMAKE_PROJECT_NAME}> verify reset exit"
+        DEPENDS ${CMAKE_PROJECT_NAME}
+        USES_TERMINAL
+        COMMENT "Flashing ${CMAKE_PROJECT_NAME}.elf with OpenOCD"
+    )
+else()
+    add_custom_target(
+        flash
+        COMMAND ${CMAKE_COMMAND} -E echo "OpenOCD is not configured. Set OPENOCD_EXECUTABLE, OPENOCD_SCRIPTS_DIR and OPENOCD_FLASH_CONFIG."
+        COMMAND ${CMAKE_COMMAND} -E false
+        DEPENDS ${CMAKE_PROJECT_NAME}
+    )
+endif()

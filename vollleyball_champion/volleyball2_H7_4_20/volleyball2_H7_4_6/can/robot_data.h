@@ -29,6 +29,8 @@ typedef struct {
 extern Robot_Pose_t g_robot_pose;
 extern Robot_Target_t g_robot_target;
 extern volatile uint32_t g_pan_tilt_cmd_update_tick;
+extern volatile uint32_t g_robot_data_reject_count;
+extern volatile uint32_t g_robot_data_clamp_count;
 
 void Robot_Data_Init(void);
 void Robot_Data_Register_Dispatches(void);
