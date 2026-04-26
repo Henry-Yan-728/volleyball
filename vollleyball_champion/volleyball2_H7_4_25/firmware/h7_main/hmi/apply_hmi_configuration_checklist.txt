@@ -1,0 +1,21 @@
+Target project copy:
+D:\下载\YAOKONGQIPING_H7_OPTIMIZED.HMI
+
+Open editor:
+E:\USARTHMI\USART HMI.exe
+
+Manual configuration order:
+1. Open D:\下载\YAOKONGQIPING_H7_OPTIMIZED.HMI.
+2. Select page main.
+3. Add or rename controls according to YAOKONGQIPING_H7_OPTIMIZED_CONTROLS.csv.
+4. For text controls, make sure objname exactly matches the name column.
+5. For b_send, b_start, b_end, b_home, b_front, b_back, paste the event script from the txt_or_event column into the release event.
+6. Keep t2 and t3 as text input controls. Their txt values are sent to H7 as target coordinates.
+7. Save the project.
+8. Compile/download with the TJC USART HMI editor.
+
+Firmware side is already configured for:
+UART4, 115200, 8N1
+PD1/UART4_TX -> HMI RX
+PD0/UART4_RX <- HMI TX
+GND -> GND

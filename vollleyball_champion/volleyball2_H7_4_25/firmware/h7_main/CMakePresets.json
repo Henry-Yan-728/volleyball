@@ -1,0 +1,117 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/vscode-${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "CMAKE_MAKE_PROGRAM": "C:/Users/Lenovo/AppData/Local/stm32cube/bundles/ninja/1.13.1+st.1/bin/ninja.exe",
+                "STM32_GNU_TOOLS_BIN_DIR": "D:/robocon/DevEnv/DevEnv/GNU-tools-for-STM32/bin",
+                "OPENOCD_EXECUTABLE": "D:/robocon/DevEnv/DevEnv/openocd-v0.12.0-i686-w64-mingw32/bin/openocd.exe",
+                "OPENOCD_SCRIPTS_DIR": "D:/robocon/DevEnv/DevEnv/openocd-v0.12.0-i686-w64-mingw32/share/openocd/scripts",
+                "OPENOCD_FLASH_CONFIG": "${sourceDir}/stm32h7x_daplink.cfg"
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug",
+            "configurePreset": "Debug"
+        },
+        {
+            "name": "Debug-Flash",
+            "configurePreset": "Debug",
+            "targets": [
+                "flash"
+            ]
+        },
+        {
+            "name": "Release",
+            "configurePreset": "Release"
+        },
+        {
+            "name": "Release-Flash",
+            "configurePreset": "Release",
+            "targets": [
+                "flash"
+            ]
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "Debug",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Debug"
+                },
+                {
+                    "type": "build",
+                    "name": "Debug"
+                }
+            ]
+        },
+        {
+            "name": "Debug-Flash",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Debug"
+                },
+                {
+                    "type": "build",
+                    "name": "Debug-Flash"
+                }
+            ]
+        },
+        {
+            "name": "Release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Release"
+                },
+                {
+                    "type": "build",
+                    "name": "Release"
+                }
+            ]
+        },
+        {
+            "name": "Release-Flash",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Release"
+                },
+                {
+                    "type": "build",
+                    "name": "Release-Flash"
+                }
+            ]
+        }
+    ]
+}

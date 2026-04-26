@@ -1,0 +1,36 @@
+Open with:
+D:\下载\YAOKONGQIPING.HMI
+
+Page name:
+main
+
+Status text objects expected by firmware:
+t_mode
+t_state
+t_pose
+t_vel
+t_target
+t_rc
+t_tick
+t_msg
+
+Start button release event:
+prints "start",0
+printh 0D 0A
+
+End button release event:
+prints "end",0
+printh 0D 0A
+
+Target send button release event, with X input t2 and Y input t3:
+prints "X:",0
+prints t2.txt,0
+prints ",Y:",0
+prints t3.txt,0
+printh 0D 0A
+
+MCU-to-screen refresh examples:
+t_mode.txt="AUTO"
+t_state.txt="START"
+t_state.pco=2016
+t_pose.txt="X:800 Y:500 A:0"
